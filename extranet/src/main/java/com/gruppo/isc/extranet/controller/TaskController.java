@@ -11,28 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Task;
 
 @RestController
 @CrossOrigin(origins =  "http://localhost:4200")
-@RequestMapping("/prova")
-public class ProvaController {
-
+@RequestMapping("/task")
+public class TaskController {
 	
-	public class PersonaController {
-		
-//		@Autowired
-//		PersonaService ps;
-		
-		
+	@Autowired
+	Task ta;
 
-		@GetMapping
-		public ResponseEntity<List<String>> getPersonaList(){
-			
-			List<String> lista = new ArrayList<String>();
-			lista.add("alessio");
-			lista.add("miao");
-	
-			return new ResponseEntity<List<String>>(lista,HttpStatus.OK);
-		}
+	@GetMapping
+	public ResponseEntity<List<Task>> getPersonaList(){
+		
+		List<Task> lista = new ArrayList<Task>();
+		ta.setNome("app");
+		lista.add(ta);
+
+		return new ResponseEntity<List<Task>>(lista,HttpStatus.OK);
 	}
 }
