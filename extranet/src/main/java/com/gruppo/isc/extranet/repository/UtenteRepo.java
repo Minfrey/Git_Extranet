@@ -10,7 +10,7 @@ public interface UtenteRepo {
 	
 	public void disabilitaUtente(Utente u);
 	
-	public Utente creaUtente(Utente u);
+	public void creaUtente(Utente u);
 	
 	public boolean accesso(String username, String password);
 	

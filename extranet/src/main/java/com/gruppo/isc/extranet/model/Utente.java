@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.model;
 
+import java.beans.JavaBean;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name="utente")
 @Data
+@JavaBean
 public class Utente implements Serializable {
 
 	/**
@@ -41,6 +43,6 @@ public class Utente implements Serializable {
 	private int primo_accesso;
 	
 	@ManyToOne
-	@JoinColumn(name = "fk_id_gruppo", referencedColumnName = "id")
+	@JoinColumn(name = "fk_id_gruppo", referencedColumnName = "id_gruppo")
 	private Gruppo gruppo;
 }

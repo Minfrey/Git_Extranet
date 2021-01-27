@@ -2,14 +2,21 @@ package com.gruppo.isc.extranet.service;
 
 import java.util.List;
 
-import com.gruppo.isc.extranet.model.Utente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.gruppo.isc.extranet.model.Utente;
+import com.gruppo.isc.extranet.repository.UtenteRepo;
+
+@Service
 public class UtenteService implements UtenteUtilities {
 
+	@Autowired
+	UtenteRepo ur;
+	
 	@Override
 	public List<Utente> getAllUtenti() {
-		// TODO Auto-generated method stub
-		return null;
+		return ur.getAllUtenti();
 	}
 
 	@Override
@@ -19,9 +26,8 @@ public class UtenteService implements UtenteUtilities {
 	}
 
 	@Override
-	public Utente creaUtente(Utente u) {
-		// TODO Auto-generated method stub
-		return null;
+	public void creaUtente(Utente u) {
+		ur.creaUtente(u);
 	}
 
 	@Override

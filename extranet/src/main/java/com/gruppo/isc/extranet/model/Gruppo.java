@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
+
 @Entity
 @Table(name="gruppo")
 @Data
