@@ -1,7 +1,6 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,38 +14,23 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
-
-@Entity
 @Data
-@Table(name="commessa")
-public class Commessa implements Serializable
-{
-	/**
+@Entity
+@Table(name="tipousorisorse")
+public class TipoUsoRisorse implements Serializable{/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+	@Column(name="id_tipo_usorisorse")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_commessa;
+	private Integer id;
 	
 	@Column(nullable=false)
 	private String nome;
 	
-	@Column(nullable=false)
-	private String cliente;
-	
-	@Column(columnDefinition = "DOUBLE default 0",nullable=false)
-	private Double valore;
-	
-	@Column(nullable=false)
-	private Date inizio;
-	
-	@Column(nullable=false)
-	private Date fine;
-	
-	@OneToMany(mappedBy = "commessa")
-	private Set<Attivita> attivita;
-	
-	
-	
+	@OneToMany(mappedBy = "tipoUsoRisorse") //tipoUsoRisorse si trova nella classe UsoRisorse
+	private Set<UsoRisorse> usoRisorse;
+
 }

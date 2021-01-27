@@ -1,5 +1,13 @@
 package com.gruppo.isc.extranet.repository;
 
-public class ProvaRepository {
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class ProvaRepository 
+{
+	@PersistenceContext
+	EntityManager em;
 }
