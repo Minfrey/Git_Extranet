@@ -24,10 +24,10 @@ public class Gruppo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_gruppo")
+	@Column(name = "id_gruppo", nullable = false)
 	private int id;
 	
-	@Column(name = "descrizione")
+	@Column(name = "descrizione" , nullable = false)
 	private String descrizione;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gruppo")

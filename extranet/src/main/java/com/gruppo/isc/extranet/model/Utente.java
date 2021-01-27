@@ -12,12 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Entity
 @Table(name="utente")
 @Data
-@JavaBean
 public class Utente implements Serializable {
 
 	/**
@@ -27,22 +28,27 @@ public class Utente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_utente")
+	@Column(name = "id_utente", nullable = false)
 	private int id;
 	
-	@Column(name = "username")
+	@NotNull
+	@Column(name = "username", nullable = false , unique = true)
 	private String username;
 	
-	@Column(name = "password")
+	@NotNull
+	@Column(name = "password", nullable = false , columnDefinition = "varchar(255) default '123'")
 	private String password;
 	
-	@Column(name = "stato")
+	@NotNull
+	@Column(name = "stato", nullable = false , columnDefinition = "int default '1'")
 	private int stato;
 	
-	@Column(name = "primo_accesso")
+	
+	@Column(name = "primo_accesso" , nullable = false ,columnDefinition = "int default '1'")
 	private int primo_accesso;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "fk_id_gruppo", referencedColumnName = "id_gruppo")
+	@JoinColumn(name = "fk_id_gruppo", nullable = false, referencedColumnName = "id_gruppo")
 	private Gruppo gruppo;
 }

@@ -32,8 +32,15 @@ public class ControllerUtente {
 	}
 	
 	@PostMapping("/crea")
-	public void creaUtente(@RequestBody Utente u)
+	public void creaUtente(@RequestParam String username, String tipoUtente)
 	{
-		us.creaUtente(u);
+		us.creaUtente(username, tipoUtente);
+	}
+	
+	@PostMapping("/accesso")
+	public ResponseEntity<Boolean> accessoUtenti(@RequestParam String user, String pass)
+	{
+		Boolean accesso = us.accesso(user, pass);
+		return new ResponseEntity<Boolean>(accesso, HttpStatus.OK);
 	}
 }

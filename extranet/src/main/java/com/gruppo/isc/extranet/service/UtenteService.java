@@ -20,21 +20,24 @@ public class UtenteService implements UtenteUtilities {
 	}
 
 	@Override
+	public void creaUtente(String username, String tipoUtente) {
+		ur.creaUtente(username, tipoUtente);
+	}
+	
+	
+	@Override
+	public boolean accesso(String username, String password) {
+		return ur.accesso(username, password);
+	}
+	
+	
+	@Override
 	public void disabilitaUtente(Utente u) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void creaUtente(Utente u) {
-		ur.creaUtente(u);
-	}
 
-	@Override
-	public boolean accesso(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean modificaPassword(String password) {

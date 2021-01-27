@@ -7,10 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 
 @Repository
@@ -19,33 +21,58 @@ public class UtenteRepoImp implements UtenteRepo {
 	@PersistenceContext
 	EntityManager em;
 	
-	@Autowired
-	Utente u;
 	
 	@Override
 	public List<Utente> getAllUtenti() {
-		Query q = em.createQuery("select u from Utente u where u.gruppo.descrizione='utente'");
+		Query q = em.createQuery("select u from Utente u join u.gruppo g where g.descrizione='utente'");
 		return q.getResultList();
 	}
 	
 	@Override
-	public void creaUtente(Utente u) {
-		String password = "md5(123)";
+	@Transactional
+	public void creaUtente(String username, String tipoUtente) {
+		String password = "123";
 		int stato = 1;
-		int primoAccesso=1;		
-		int gruppo = 1;
-//		Query gruppo = em.createQuery("select g from Gruppo g where g.descrizione='utente'")
+		int primoAccesso=1;
 		
-		Query q = em.createQuery("insert into Utente u (u.username, u.password, u.stato, u.primo_accesso, u.gruppo.id) values(:user,md5(:pass),:stato,:pa, :gruppo)");
-		q.setParameter("user", u.getUsername());
-		q.setParameter("pass", password);
-		q.setParameter("stato", stato);
-		q.setParameter("pa", primoAccesso);
-		q.setParameter("gruppo", gruppo);
+		Gruppo g= new Gruppo();
 		
-		em.persist(q);
+		Query gruppo = em.createQuery("select g from Gruppo g where g.descrizione = :descrizione");
+		gruppo.setParameter("descrizione", tipoUtente);
+		g=(Gruppo) gruppo.getSingleResult();
 		
+		Query q = em.createNativeQuery("insert into Utente (username, password, stato, primo_accesso, fk_id_gruppo) values(?,md5(?),?,?,?)");
+		q.setParameter(1,username);
+		q.setParameter(2, password);
+		q.setParameter(3, stato);
+		q.setParameter(4, primoAccesso);
+		q.setParameter(5, g.getId());
+		
+		q.executeUpdate();
+	
 	}
+	
+	@Override
+	public boolean accesso(String username, String password) {
+		boolean accesso = false;
+		
+		Query q = em.createQuery("select u from Utente u where u.username=:user and u.password=md5(:pass)");
+		q.setParameter("user", username);
+		q.setParameter("pass", password);
+		
+		try
+		{
+			if(q.getSingleResult()!=null) {
+				accesso=true;
+			}
+		}
+		catch (NoResultException e) {
+			// TODO: handle exception
+		}
+		
+		return accesso;
+	}
+	
 
 	@Override
 	public void disabilitaUtente(Utente u) {
@@ -53,11 +80,6 @@ public class UtenteRepoImp implements UtenteRepo {
 
 	}
 
-	@Override
-	public boolean accesso(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public boolean modificaPassword(String password) {
