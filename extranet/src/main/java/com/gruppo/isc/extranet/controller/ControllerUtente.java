@@ -31,11 +31,13 @@ public class ControllerUtente {
 		return new ResponseEntity<List<Utente>>(lista,HttpStatus.OK);
 	}
 	
+	
 	@PostMapping("/crea")
 	public void creaUtente(@RequestParam String username, String tipoUtente)
 	{
 		us.creaUtente(username, tipoUtente);
 	}
+	
 	
 	@PostMapping("/accesso")
 	public ResponseEntity<Boolean> accessoUtenti(@RequestParam String user, String pass)
@@ -43,4 +45,6 @@ public class ControllerUtente {
 		Boolean accesso = us.accesso(user, pass);
 		return new ResponseEntity<Boolean>(accesso, HttpStatus.OK);
 	}
+	
+	
 }

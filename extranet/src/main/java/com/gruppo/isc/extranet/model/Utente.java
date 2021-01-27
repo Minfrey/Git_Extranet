@@ -30,16 +30,13 @@ public class Utente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_utente", nullable = false)
 	private int id;
-	
-	@NotNull
+
 	@Column(name = "username", nullable = false , unique = true)
 	private String username;
-	
-	@NotNull
-	@Column(name = "password", nullable = false , columnDefinition = "varchar(255) default '123'")
+
+	@Column(name = "password", nullable = false)
 	private String password;
-	
-	@NotNull
+
 	@Column(name = "stato", nullable = false , columnDefinition = "int default '1'")
 	private int stato;
 	
@@ -47,7 +44,7 @@ public class Utente implements Serializable {
 	@Column(name = "primo_accesso" , nullable = false ,columnDefinition = "int default '1'")
 	private int primo_accesso;
 	
-	@NotNull
+
 	@ManyToOne
 	@JoinColumn(name = "fk_id_gruppo", nullable = false, referencedColumnName = "id_gruppo")
 	private Gruppo gruppo;

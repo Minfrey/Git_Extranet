@@ -32,21 +32,16 @@ public class UtenteRepoImp implements UtenteRepo {
 	@Transactional
 	public void creaUtente(String username, String tipoUtente) {
 		String password = "123";
-		int stato = 1;
-		int primoAccesso=1;
 		
 		Gruppo g= new Gruppo();
-		
 		Query gruppo = em.createQuery("select g from Gruppo g where g.descrizione = :descrizione");
 		gruppo.setParameter("descrizione", tipoUtente);
 		g=(Gruppo) gruppo.getSingleResult();
 		
-		Query q = em.createNativeQuery("insert into Utente (username, password, stato, primo_accesso, fk_id_gruppo) values(?,md5(?),?,?,?)");
+		Query q = em.createNativeQuery("insert into Utente (username, password, fk_id_gruppo) values(?,md5(?),?)");
 		q.setParameter(1,username);
 		q.setParameter(2, password);
-		q.setParameter(3, stato);
-		q.setParameter(4, primoAccesso);
-		q.setParameter(5, g.getId());
+		q.setParameter(3, g.getId());
 		
 		q.executeUpdate();
 	
@@ -67,7 +62,6 @@ public class UtenteRepoImp implements UtenteRepo {
 			}
 		}
 		catch (NoResultException e) {
-			// TODO: handle exception
 		}
 		
 		return accesso;
