@@ -15,20 +15,22 @@ public class UtenteService implements UtenteUtilities {
 	@Autowired
 	UtenteRepo ur;
 	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public List<Utente> getAllUtenti(String descrizione) {
 		return ur.getAllUtenti(descrizione);
 	}
 
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public void creaUtente(String username, String tipoUtente) {
-		ur.creaUtente(username, tipoUtente);
+	public void creaUtente(Utente u) {
+		ur.creaUtente(u);
 	}
 	
-	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public boolean accesso(String username, String password) {
-		return ur.accesso(username, password);
+	public boolean accesso(Utente u) {
+		return ur.accesso(u);
 	}
 	
 	
@@ -40,8 +42,8 @@ public class UtenteService implements UtenteUtilities {
 
 
 	@Override
-	public boolean modificaPassword(Utente u ,String password) {
-		return ur.modificaPassword(u, password);
+	public boolean modificaPassword(Utente u) {
+		return ur.modificaPassword(u );
 	}
 
 	@Override

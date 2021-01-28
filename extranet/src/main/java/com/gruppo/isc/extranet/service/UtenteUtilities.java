@@ -11,11 +11,11 @@ public List<Utente> getAllUtenti(String descrizione);
 	
 	public boolean disabilitaUtente(Utente u);
 	
-	public void creaUtente(String username , String tipoUtente);
+	public void creaUtente(Utente u);
 	
-	public boolean accesso(String username, String password);
+	public boolean accesso(Utente u);
 	
-	public boolean modificaPassword(Utente u,String password);
+	public boolean modificaPassword(Utente u);
 	
 	public List<Gruppo> getAlleGruppi();
 	
