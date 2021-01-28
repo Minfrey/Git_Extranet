@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 import com.gruppo.isc.extranet.service.UtenteService;
 
@@ -25,9 +27,9 @@ public class ControllerUtente {
 	UtenteService us;
 	
 	@GetMapping
-	public ResponseEntity<List<Utente>> getAllUtenti()
+	public ResponseEntity<List<Utente>> getAllUtenti(String descrizione)
 	{
-		List<Utente> lista = us.getAllUtenti();
+		List<Utente> lista = us.getAllUtenti(descrizione);
 		return new ResponseEntity<List<Utente>>(lista,HttpStatus.OK);
 	}
 	
@@ -45,6 +47,29 @@ public class ControllerUtente {
 		Boolean accesso = us.accesso(user, pass);
 		return new ResponseEntity<Boolean>(accesso, HttpStatus.OK);
 	}
+	
+	@PutMapping("/modificaPassword")
+	public ResponseEntity<Boolean> modificaPassword(@RequestBody Utente u , @RequestParam String password)
+	{
+		Boolean modifica = us.modificaPassword(u, password);
+		return new ResponseEntity<Boolean>(modifica,HttpStatus.OK);
+	}
+	
+	@GetMapping("/tuttiGruppi")
+	public ResponseEntity<List<Gruppo>> getAllGruppi()
+	{
+		List<Gruppo> lista = us.getAlleGruppi();
+		return new ResponseEntity<List<Gruppo>>(lista, HttpStatus.OK);
+	}
+	
+	@PutMapping("/disabilita")
+	public ResponseEntity<Boolean> disabilitaUtente(@RequestBody Utente u)
+	{
+		Boolean disabilita = us.disabilitaUtente(u);
+		return new ResponseEntity<Boolean>(disabilita, HttpStatus.OK);
+	}
+	
+	
 	
 	
 }

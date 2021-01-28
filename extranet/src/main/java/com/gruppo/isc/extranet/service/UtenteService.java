@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 import com.gruppo.isc.extranet.repository.UtenteRepo;
 
@@ -15,8 +16,8 @@ public class UtenteService implements UtenteUtilities {
 	UtenteRepo ur;
 	
 	@Override
-	public List<Utente> getAllUtenti() {
-		return ur.getAllUtenti();
+	public List<Utente> getAllUtenti(String descrizione) {
+		return ur.getAllUtenti(descrizione);
 	}
 
 	@Override
@@ -32,17 +33,20 @@ public class UtenteService implements UtenteUtilities {
 	
 	
 	@Override
-	public void disabilitaUtente(Utente u) {
-		// TODO Auto-generated method stub
-
+	public boolean disabilitaUtente(Utente u) {
+		return ur.disabilitaUtente(u);
 	}
 
 
 
 	@Override
-	public boolean modificaPassword(String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean modificaPassword(Utente u ,String password) {
+		return ur.modificaPassword(u, password);
+	}
+
+	@Override
+	public List<Gruppo> getAlleGruppi() {
+		return ur.getAlleGruppi();
 	}
 
 }

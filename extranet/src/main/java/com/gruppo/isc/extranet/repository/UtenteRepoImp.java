@@ -23,8 +23,9 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	
 	@Override
-	public List<Utente> getAllUtenti() {
-		Query q = em.createQuery("select u from Utente u join u.gruppo g where g.descrizione='utente'");
+	public List<Utente> getAllUtenti(String descrizione) {
+		Query q = em.createQuery("select u from Utente u join u.gruppo g where g.descrizione=:descrizione");
+		q.setParameter("descrizione", descrizione);
 		return q.getResultList();
 	}
 	
@@ -67,18 +68,58 @@ public class UtenteRepoImp implements UtenteRepo {
 		return accesso;
 	}
 	
-
+	
 	@Override
-	public void disabilitaUtente(Utente u) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public boolean modificaPassword(Utente u,String password) {
+		boolean modifica = false;
+		Query q = em.createQuery("update Utente u set u.password = md5(:pass) where u.id=:id");
+		q.setParameter("pass", password);
+		q.setParameter("id", u.getId());
+		try
+		{
+			if(q.executeUpdate()>0)
+			{
+				modifica=true;
+			}
+		}
+		catch (IllegalStateException e) {
+		}
+		return modifica;
+	}
 
+	
+	
+	@Override
+	public List<Gruppo> getAlleGruppi() {
+		Query q = em.createQuery("select g from Gruppo g");
+		return q.getResultList();
+	}
+	
+	
+	@Override
+	@Transactional
+	public boolean disabilitaUtente(Utente u) {
+		boolean disabilita = false;
+		int disabilitato = 0;
+		String desc = "utente";
+		Query q = em.createQuery("update Utente u set u.stato=:stato where u.id=:id and u.gruppo.descrizione=:desc");
+		q.setParameter("stato", disabilitato);
+		q.setParameter("id", u.getId());
+		q.setParameter("desc", desc);
+		
+		try {
+			if(q.executeUpdate()>0)
+			{
+				disabilita = true;
+			}
+		}
+		catch (IllegalStateException e) {
+		}
+		return disabilita;
 	}
 
 
-	@Override
-	public boolean modificaPassword(String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 }
