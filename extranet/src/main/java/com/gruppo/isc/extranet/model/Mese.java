@@ -29,9 +29,6 @@ public class Mese implements Serializable
 	@Column(nullable=false)
 	private String nome;
 	
-	@Column(nullable=false)
-	private Integer anno;
-	
 	@OneToMany(mappedBy="mese")
 	private Set<UsoRisorse> usorisorse;
 	
