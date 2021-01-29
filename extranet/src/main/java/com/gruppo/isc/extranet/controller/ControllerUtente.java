@@ -35,7 +35,6 @@ public class ControllerUtente {
 	}
 	
 	
-	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@PostMapping("/accesso")
 	public ResponseEntity<Boolean> accessoUtenti(@RequestBody Utente u)
@@ -45,7 +44,7 @@ public class ControllerUtente {
 	}
 	
 	
-	//*****METODO FINITO E FUNZIONANTE**********	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@PutMapping("/modificaPassword")
 	public ResponseEntity<Boolean> modificaPassword(@RequestBody Utente u)
 	{
@@ -61,9 +60,16 @@ public class ControllerUtente {
 		return new ResponseEntity<List<Gruppo>>(lista, HttpStatus.OK);
 	}
 	
-	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@PutMapping("/disabilita")
+	public ResponseEntity<Boolean> disabilitaUtente(@RequestBody Utente u)
+	{
+		Boolean disabilita = us.disabilitaUtente(u);
+		return new ResponseEntity<Boolean>(disabilita, HttpStatus.OK);
+	}
 
 	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@PostMapping("/crea")
 	public void creaUtente(@RequestBody Utente u)
 	{
@@ -73,12 +79,6 @@ public class ControllerUtente {
 	
 	
 	
-	@PutMapping("/disabilita")
-	public ResponseEntity<Boolean> disabilitaUtente(@RequestBody Utente u)
-	{
-		Boolean disabilita = us.disabilitaUtente(u);
-		return new ResponseEntity<Boolean>(disabilita, HttpStatus.OK);
-	}
 	
 	
 	

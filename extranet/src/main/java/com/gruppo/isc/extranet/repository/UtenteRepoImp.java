@@ -53,6 +53,7 @@ public class UtenteRepoImp implements UtenteRepo {
 		return accesso;
 	}
 	
+	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public List<Gruppo> getAlleGruppi() {
@@ -60,6 +61,7 @@ public class UtenteRepoImp implements UtenteRepo {
 		return q.getResultList();
 	}
 	
+
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	@Transactional
@@ -80,46 +82,15 @@ public class UtenteRepoImp implements UtenteRepo {
 		return modifica;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	@Transactional
-	public void creaUtente(Utente u) {
-		String password = "123";
-		
-		Query q = em.createQuery("select g from Gruppo g where g.descrizione = :descrizione");
-		q.setParameter("descrizione",u.getGruppo().getDescrizione());
-		
-		Query q2 = em.createQuery(" insert into Utente (username, password, fk_id_gruppo) values (:user, md5(:pass), :idGruppo");
-		q2.setParameter("user", u.getUsername());
-		q2.setParameter("pass", password);
-		q2.setParameter("idGruppo", u.getGruppo().getId());
-		
-		q2.executeUpdate();
-		
-		
-	}
-		
-	
-	
-	
+
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	@Transactional
 	public boolean disabilitaUtente(Utente u) {
 		boolean disabilita = false;
-		int disabilitato = 0;
-		String desc = "utente";
-		Query q = em.createQuery("update Utente u set u.stato=:stato where u.id=:id and u.gruppo.descrizione=:desc");
-		q.setParameter("stato", disabilitato);
+		Query q = em.createQuery("update Utente u set u.stato=:stato where u.id=:id");
+		q.setParameter("stato", u.getStato());
 		q.setParameter("id", u.getId());
-		q.setParameter("desc", desc);
 		
 		try {
 			if(q.executeUpdate()>0)
@@ -131,6 +102,40 @@ public class UtenteRepoImp implements UtenteRepo {
 		}
 		return disabilita;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@Override
+	@Transactional
+	public void creaUtente(Utente u) {
+		String password = "123";
+		int stato = 1;
+		int primoAccesso = 1;
+		Gruppo gruppo = new Gruppo();
+		Query g = em.createQuery("Select g from Gruppo g where g.descrizione=: descrizione");
+		g.setParameter("descrizione", u.getGruppo().getDescrizione());
+		gruppo = (Gruppo) g.getSingleResult();
+		
+		
+		Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
+		q.setParameter(1, u.getUsername());
+		q.setParameter(2, password);
+		q.setParameter(3, primoAccesso);
+		q.setParameter(4, stato);
+		q.setParameter(5, gruppo.getId());
+		
+		q.executeUpdate();
+	}
+		
+	
+	
+	
 
 
 
