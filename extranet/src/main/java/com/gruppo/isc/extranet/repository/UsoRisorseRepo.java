@@ -1,5 +1,8 @@
 package com.gruppo.isc.extranet.repository;
 
-public interface UsoRisorseRepo {
+import com.gruppo.isc.extranet.model.UsoRisorse;
 
+public interface UsoRisorseRepo 
+{
+	public void setUsoRisorse(UsoRisorse u);
 }

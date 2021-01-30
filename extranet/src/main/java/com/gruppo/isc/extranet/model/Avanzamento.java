@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 
@@ -32,6 +34,7 @@ public class Avanzamento implements Serializable
 	
 	@Column(name="percentuale",nullable=false)
 	private Integer percentuale;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_attivita", referencedColumnName = "id_attivita" , nullable=false)

@@ -1,5 +1,15 @@
 package com.gruppo.isc.extranet.repository;
 
-public interface CommessaRepo {
+import java.util.List;
+
+import com.gruppo.isc.extranet.model.Commessa;
+
+public interface CommessaRepo
+{
+	public int setCommessa(Commessa c);
+	
+	public Commessa getCommessaId(int id);
+	
+	public List<Commessa> getListaCommessa();
 
 }

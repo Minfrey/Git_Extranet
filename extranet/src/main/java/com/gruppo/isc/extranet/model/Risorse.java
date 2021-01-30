@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Risorse implements Serializable
 	@Column(nullable=false)
 	private Double tariffa;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "risorse")
 	private Set<UsoRisorse> usorisorse;
 	

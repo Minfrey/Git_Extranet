@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -44,6 +45,7 @@ public class Commessa implements Serializable
 	@Column(nullable=false)
 	private Date fine;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "commessa")
 	private Set<Attivita> attivita;
 	

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -29,9 +30,11 @@ public class Mese implements Serializable
 	@Column(nullable=false)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="mese")
 	private Set<UsoRisorse> usorisorse;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="mese")
 	private Set<Avanzamento> avanzamento;
 	

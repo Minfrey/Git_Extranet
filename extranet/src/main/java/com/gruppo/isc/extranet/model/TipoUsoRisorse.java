@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -23,13 +24,13 @@ public class TipoUsoRisorse implements Serializable{/**
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="id_tipo_usorisorse")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer id_tipo_usorisorse;
 	
 	@Column(nullable=false)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "tipoUsoRisorse") //tipoUsoRisorse si trova nella classe UsoRisorse
 	private Set<UsoRisorse> usoRisorse;
 

@@ -8,22 +8,18 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.gruppo.isc.extranet.model.Mese;
-
-
-
+import com.gruppo.isc.extranet.model.Risorse;
 
 @Repository
-public class MeseRepoImp implements MeseRepo 
+public class RisorseRepoImp implements RisorseRepo
 {
 	@PersistenceContext
 	EntityManager em;
 	
 	@Override
-	public List<Mese> getMeseList()
+	public List<Risorse> getRisorseList()
 	{
-		Query q = em.createQuery("SELECT m FROM Mese m");
+		Query q = em.createQuery("SELECT r FROM Risorse r");
 		return q.getResultList();
 	}
-
 }

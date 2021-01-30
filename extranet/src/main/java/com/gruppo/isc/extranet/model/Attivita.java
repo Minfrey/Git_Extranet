@@ -13,20 +13,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "attivita")
-@Data
 public class Attivita implements Serializable
 {
 	private static final long serialVersionUID = 1L; 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id_attivita;
-	
-	
+	private Integer id_attivita;	
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_task",referencedColumnName = "id_task", nullable = false)
@@ -39,9 +39,11 @@ public class Attivita implements Serializable
 	@Column(name="valore",nullable=false)
 	private Double valore;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="attivita")
 	private Set<UsoRisorse> usoRisorse;
 	

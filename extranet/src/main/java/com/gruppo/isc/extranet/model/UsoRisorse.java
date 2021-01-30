@@ -27,8 +27,7 @@ public class UsoRisorse implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_usorisorse")
-	Integer id;
+	Integer id_usorisorse;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_risorse", referencedColumnName = "id_risorse",nullable=false)
