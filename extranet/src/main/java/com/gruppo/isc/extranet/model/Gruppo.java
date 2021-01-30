@@ -30,6 +30,7 @@ public class Gruppo {
 	@Column(name = "descrizione" , nullable = false)
 	private String descrizione;
 	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "gruppo")
 	@JsonBackReference
 	private Set<Utente> utente = new HashSet<>();

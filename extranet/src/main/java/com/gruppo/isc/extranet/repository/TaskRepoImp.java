@@ -23,5 +23,9 @@ public class TaskRepoImp implements TaskRepo
 		Query q = em.createQuery("SELECT t FROM Task t");
 		return q.getResultList();
 	}
+	
+
+
+
 
 }

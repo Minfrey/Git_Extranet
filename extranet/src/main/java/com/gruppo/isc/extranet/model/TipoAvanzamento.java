@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -25,13 +26,13 @@ public class TipoAvanzamento implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="id_tipo_avanzamento")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer id_tipo_avanzamento;
 	
 	@Column(nullable=false)
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "tipoAvanzamento")
 	private Set<Avanzamento> avanzamento;
 	

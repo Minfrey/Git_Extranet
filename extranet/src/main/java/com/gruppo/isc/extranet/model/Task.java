@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Task implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_task;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "task")
 	private Set<Attivita> attivita; 
 	

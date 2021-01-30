@@ -1,5 +1,8 @@
 package com.gruppo.isc.extranet.repository;
 
-public interface AvanzamentoRepo {
+import com.gruppo.isc.extranet.model.Avanzamento;
 
+public interface AvanzamentoRepo
+{
+	public Avanzamento setAvanzamento(Avanzamento a);
 }

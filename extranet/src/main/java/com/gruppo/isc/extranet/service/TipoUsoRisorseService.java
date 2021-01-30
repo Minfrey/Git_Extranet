@@ -1,5 +1,8 @@
 package com.gruppo.isc.extranet.service;
 
-public interface TipoUsoRisorseService {
+import com.gruppo.isc.extranet.model.TipoUsoRisorse;
 
+public interface TipoUsoRisorseService 
+{
+	public TipoUsoRisorse getTipoUsoRisorseId(int id);
 }
