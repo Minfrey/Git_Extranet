@@ -34,16 +34,16 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public Object accesso(Utente u) {
+	public Utente accesso(Utente u) {
 		
-		Object utente = new Utente();
+		Utente utente = new Utente();
 		
 		Query q = em.createQuery("select u from Utente u where u.username=:user and u.password=md5(:pass)");
 		q.setParameter("user", u.getUsername());
 		q.setParameter("pass", u.getPassword());
 		
 		try {
-			utente = q.getSingleResult();			
+			utente = (Utente) q.getSingleResult();			
 		} catch (NoResultException e) {
 			// TODO: handle exception
 		}

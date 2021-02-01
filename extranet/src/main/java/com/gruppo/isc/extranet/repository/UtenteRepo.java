@@ -13,7 +13,7 @@ public interface UtenteRepo {
 	
 	public void creaUtente(Utente u);
 	
-	public Object accesso(Utente u);
+	public Utente accesso(Utente u);
 	
 	public boolean modificaPassword(Utente u);
 	
