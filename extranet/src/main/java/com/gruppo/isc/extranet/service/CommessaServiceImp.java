@@ -35,4 +35,20 @@ public class CommessaServiceImp implements CommessaService
 	{
 		return cr.getListaCommessa();
 	}
+	
+	@Override
+	public String modCommessa(Commessa c)
+	{
+		String messaggio = ""; 
+		Commessa a = cr.modCommessa(c);
+		if(a==c)
+		{
+			messaggio = "\"Commessa aggiornata\"";
+		}
+		else
+		{
+			messaggio = "\"Non e stato possibile aggiornare la commessa\"";
+		}
+		return messaggio;		
+	}
 }

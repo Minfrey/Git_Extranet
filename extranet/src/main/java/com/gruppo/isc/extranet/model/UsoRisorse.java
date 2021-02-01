@@ -38,8 +38,8 @@ public class UsoRisorse implements Serializable
 	private Mese mese;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_id_attivita", referencedColumnName ="id_attivita",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
-	private Attivita attivita;
+	@JoinColumn(name="fk_id_commessa", referencedColumnName ="id_commessa",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
+	private Commessa commessa;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_tipo_usorisorse", referencedColumnName ="id_tipo_usorisorse",nullable=false)

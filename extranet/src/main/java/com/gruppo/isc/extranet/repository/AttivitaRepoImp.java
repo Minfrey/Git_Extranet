@@ -38,5 +38,12 @@ public class AttivitaRepoImp implements AttivitaRepo
 		return q.getResultList();
   }
 	
+	@Override
+	public Attivita modAttivita(Attivita a)
+	{
+		Attivita b =em.merge(a);
+		return b;
+	}
+	
 	 
 }

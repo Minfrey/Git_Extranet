@@ -9,4 +9,6 @@ public interface AttivitaService
 	public void setAttivita(Attivita a);
 	
 	public List<Attivita> getAttivitaCommessa(int id);
+	
+	public String modAttivita(Attivita a);
 }
