@@ -24,7 +24,7 @@ public class UtenteService implements UtenteUtilities {
 
 	//*****METODO FINITO E FUNZIONANTE**********	
 	@Override
-	public boolean accesso(Utente u) {
+	public Object accesso(Utente u) {
 		return ur.accesso(u);
 	}
 	

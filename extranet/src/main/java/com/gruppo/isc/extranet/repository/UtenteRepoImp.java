@@ -34,26 +34,25 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public boolean accesso(Utente u) {
-		boolean accesso = false;
+	public Object accesso(Utente u) {
+		
+		Object utente = new Utente();
 		
 		Query q = em.createQuery("select u from Utente u where u.username=:user and u.password=md5(:pass)");
 		q.setParameter("user", u.getUsername());
 		q.setParameter("pass", u.getPassword());
 		
-		try
-		{
-			if(q.getSingleResult()!=null) {
-				accesso=true;
-			}
-		}
-		catch (NoResultException e) {
+		try {
+			utente = q.getSingleResult();			
+		} catch (NoResultException e) {
+			// TODO: handle exception
 		}
 		
-		return accesso;
+		return utente;
+		
+
 	}
-	
-	
+		
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public List<Gruppo> getAlleGruppi() {
@@ -102,13 +101,6 @@ public class UtenteRepoImp implements UtenteRepo {
 		}
 		return disabilita;
 	}
-
-	
-	
-	
-	
-	
-	
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override

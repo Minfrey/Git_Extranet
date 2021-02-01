@@ -37,10 +37,10 @@ public class ControllerUtente {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@PostMapping("/accesso")
-	public ResponseEntity<Boolean> accessoUtenti(@RequestBody Utente u)
+	public ResponseEntity<Object> accessoUtenti(@RequestBody Utente u)
 	{
-		Boolean accesso = us.accesso(u);
-		return new ResponseEntity<Boolean>(accesso, HttpStatus.OK);
+		Object utente = us.accesso(u);
+		return new ResponseEntity<Object>(utente, HttpStatus.OK);
 	}
 	
 	

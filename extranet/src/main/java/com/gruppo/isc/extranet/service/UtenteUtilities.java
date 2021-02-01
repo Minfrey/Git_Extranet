@@ -13,7 +13,7 @@ public List<Utente> getAllUtenti(String descrizione);
 	
 	public void creaUtente(Utente u);
 	
-	public boolean accesso(Utente u);
+	public Object accesso(Utente u);
 	
 	public boolean modificaPassword(Utente u);
 	
