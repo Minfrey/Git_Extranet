@@ -12,4 +12,5 @@ public interface CommessaRepo
 	
 	public List<Commessa> getListaCommessa();
 
+	public Commessa modCommessa(Commessa c);
 }

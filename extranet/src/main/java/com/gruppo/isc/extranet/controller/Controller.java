@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -101,21 +102,49 @@ public class Controller
 	}
 	
 	@GetMapping("listaattivita/{id}")
-	public List<Attivita> getAttivitaCommessa(@PathVariable("id") int id)
+	public ResponseEntity<List<Attivita>> getAttivitaCommessa(@PathVariable("id") int id)
 	{
-		return as.getAttivitaCommessa(id);
+		List<Attivita> lista = as.getAttivitaCommessa(id);
+		return  new ResponseEntity<List<Attivita>>(lista,HttpStatus.OK);
 	}
 
 	@PostMapping("usorisorse")
-	public void setUsoRisorse(@RequestBody UsoRisorse u)
+	public String setUsoRisorse(@RequestBody UsoRisorse u)
 	{ 
-	    urs.setUsoRisorse(u);
+	    return urs.setUsoRisorse(u);
+	}
+	
+	@GetMapping("getusorisorse/{id}")
+	public ResponseEntity<List<UsoRisorse>> getUsoRisorseList(@PathVariable("id") int id)
+	{
+		List<UsoRisorse> lista = urs.getUsoRisorseList(id);
+		return new ResponseEntity<List<UsoRisorse>>(lista,HttpStatus.OK);
+	}
+	
+	@PutMapping("modusorisorse")
+	public String modUsoRisorse(@RequestBody UsoRisorse u)
+	{
+		return urs.modUsoRisorse(u);
 	}
 	
 	@PostMapping("avanzamento")
-	public ResponseEntity<Avanzamento> setAvanzamento(@RequestBody Avanzamento a)
+	public String setAvanzamento(@RequestBody Avanzamento a)
 	{ 
-		Avanzamento avan = avs.setAvanzamento(a);
-	    return new ResponseEntity<Avanzamento>(avan,HttpStatus.CREATED);
+		
+	    return avs.setAvanzamento(a);
 	}
+	
+	@PutMapping("modavanzamento")
+	public String modAvanzamento(@RequestBody Avanzamento a)
+	{
+		return avs.modAvanzamento(a);
+	}
+	
+	@PutMapping("modattivita")
+	public String modAttivita(@RequestBody Attivita a)
+	{
+		String b  = as.modAttivita(a);
+		return b;
+	}
+	
 }

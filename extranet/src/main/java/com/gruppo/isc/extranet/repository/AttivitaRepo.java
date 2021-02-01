@@ -8,4 +8,5 @@ public interface AttivitaRepo
 {
 	public void setAttivita(Attivita a);
 	public List<Attivita> getAttivitaCommessa(int id);
+	public Attivita modAttivita(Attivita a);
 }

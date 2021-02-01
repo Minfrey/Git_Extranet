@@ -29,6 +29,22 @@ public class AttivitaServiceImp implements AttivitaService
 	{
 		return ar.getAttivitaCommessa(id);
 	}
+	
+	public String modAttivita(Attivita a)
+	{
+		String messaggio;
+		Attivita b = ar.modAttivita(a);
+		if(a==b)
+		{
+			messaggio = "\"Attivita aggiornata\"";
+		}
+		else
+		{
+			messaggio = "\"Non e stato possibile aggiornare l'attivita\"";
+		}
+		return messaggio;
+	}
+	
 
 
 }

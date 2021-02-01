@@ -49,6 +49,9 @@ public class Commessa implements Serializable
 	@OneToMany(mappedBy = "commessa")
 	private Set<Attivita> attivita;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "commessa")
+	private Set<UsoRisorse> UsoRisorse;
 	
 	
 }

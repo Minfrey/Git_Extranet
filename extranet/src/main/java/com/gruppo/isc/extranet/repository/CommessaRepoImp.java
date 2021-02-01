@@ -43,4 +43,11 @@ public class CommessaRepoImp implements CommessaRepo
 		Query q  = em.createQuery("From Commessa");
 		return q.getResultList();
 	}
+	
+	@Override
+	public Commessa modCommessa(Commessa c)
+	{
+		Commessa a = em.merge(c);
+		return a;
+	}
 }

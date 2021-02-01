@@ -43,9 +43,9 @@ public class Attivita implements Serializable
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="attivita")
-	private Set<UsoRisorse> usoRisorse;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="attivita")
+//	private Set<UsoRisorse> usoRisorse;
 	
 	
 
