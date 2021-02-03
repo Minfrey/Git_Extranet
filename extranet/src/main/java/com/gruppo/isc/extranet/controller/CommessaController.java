@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,7 @@ public class CommessaController
 	@GetMapping("commessa/{id}")
     public ResponseEntity<Commessa> getCommessaId(@PathVariable("id") int id)
 	{
+		
 		Commessa commessa = cs.getCommessaId(id);
 		return new ResponseEntity<Commessa>(commessa,HttpStatus.OK);
 	}
@@ -43,5 +45,11 @@ public class CommessaController
 	   return cs.setCommessa(c);
 	}
 	
+	@PutMapping("modcommessa")
+	public String modCommessa(@RequestBody Commessa c)
+	{
+		String b = cs.modCommessa(c);
+		return b;
+	}
 
 }

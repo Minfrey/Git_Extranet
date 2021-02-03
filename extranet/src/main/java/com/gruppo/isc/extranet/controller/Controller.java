@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Anno;
 import com.gruppo.isc.extranet.model.Attivita;
 import com.gruppo.isc.extranet.model.Avanzamento;
 import com.gruppo.isc.extranet.model.Commessa;
@@ -20,6 +22,7 @@ import com.gruppo.isc.extranet.model.Risorse;
 import com.gruppo.isc.extranet.model.Task;
 import com.gruppo.isc.extranet.model.TipoUsoRisorse;
 import com.gruppo.isc.extranet.model.UsoRisorse;
+import com.gruppo.isc.extranet.service.AnnoServiceImp;
 import com.gruppo.isc.extranet.service.AttivitaServiceImp;
 import com.gruppo.isc.extranet.service.AvanzamentoServiceImp;
 import com.gruppo.isc.extranet.service.CommessaServiceImp;
@@ -43,6 +46,8 @@ public class Controller
 	@Autowired
 	MeseServiceImp ms;
 	
+	@Autowired
+	AnnoServiceImp asi;
 	
 	@Autowired
 	AttivitaServiceImp as;
@@ -58,6 +63,7 @@ public class Controller
 	
 	@Autowired
 	AvanzamentoServiceImp avs;
+	
 	
 	@GetMapping("task")
     public ResponseEntity<List<Task>> getTaskList()
@@ -101,21 +107,65 @@ public class Controller
 	}
 	
 	@GetMapping("listaattivita/{id}")
-	public List<Attivita> getAttivitaCommessa(@PathVariable("id") int id)
+	public ResponseEntity<List<Attivita>> getAttivitaCommessa(@PathVariable("id") int id)
 	{
-		return as.getAttivitaCommessa(id);
+		List<Attivita> lista = as.getAttivitaCommessa(id);
+		return  new ResponseEntity<List<Attivita>>(lista,HttpStatus.OK);
 	}
 
 	@PostMapping("usorisorse")
-	public void setUsoRisorse(@RequestBody UsoRisorse u)
+	public String setUsoRisorse(@RequestBody UsoRisorse u)
 	{ 
-	    urs.setUsoRisorse(u);
+	    return urs.setUsoRisorse(u);
+	}
+	
+	@GetMapping("getusorisorse/{id}")
+	public ResponseEntity<List<UsoRisorse>> getUsoRisorseList(@PathVariable("id") int id)
+	{
+		List<UsoRisorse> lista = urs.getUsoRisorseList(id);
+		return new ResponseEntity<List<UsoRisorse>>(lista,HttpStatus.OK);
+	}
+	
+	@PutMapping("modusorisorse")
+	public String modUsoRisorse(@RequestBody UsoRisorse u)
+	{
+		return urs.modUsoRisorse(u);
+	}
+	
+	@GetMapping("avanzamentolist/{id}")
+	public ResponseEntity<List<Avanzamento>> getAvanzamentoByCommessa(@PathVariable("id") int id)
+	{
+		List<Avanzamento> lista = avs.getAvanzamentoByAttivita2(id);
+		return new ResponseEntity<List<Avanzamento>>(lista,HttpStatus.OK);
 	}
 	
 	@PostMapping("avanzamento")
-	public ResponseEntity<Avanzamento> setAvanzamento(@RequestBody Avanzamento a)
+	public String setAvanzamento(@RequestBody Avanzamento a)
 	{ 
-		Avanzamento avan = avs.setAvanzamento(a);
-	    return new ResponseEntity<Avanzamento>(avan,HttpStatus.CREATED);
+		
+	    return avs.setAvanzamento(a);
 	}
+	
+	@PutMapping("modavanzamento")
+	public String modAvanzamento(@RequestBody Avanzamento a)
+	{
+		return avs.modAvanzamento(a);
+	}
+	
+	@PutMapping("modattivita")
+	public String modAttivita(@RequestBody Attivita a)
+	{
+		String b  = as.modAttivita(a);
+		return b;
+	}
+	
+	@GetMapping("getanno")
+	public ResponseEntity<List<Anno>> getAnno()
+	{
+		List<Anno> lista = asi.getAnno();
+		return new ResponseEntity<List<Anno>>(lista,HttpStatus.OK);
+	}
+	
+	
+	
 }

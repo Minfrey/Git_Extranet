@@ -9,4 +9,5 @@ public interface CommessaService
 	public int setCommessa(Commessa c);
 	public Commessa getCommessaId(int id);
 	public List<Commessa> getListaCommessa();
+	public String modCommessa(Commessa c);
 }

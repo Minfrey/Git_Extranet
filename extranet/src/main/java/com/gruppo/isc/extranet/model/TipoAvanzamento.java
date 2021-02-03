@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -36,5 +37,25 @@ public class TipoAvanzamento implements Serializable
 	@OneToMany(mappedBy = "tipoAvanzamento")
 	private Set<Avanzamento> avanzamento;
 	
+	@Override
+    public int hashCode() {
+        return Objects.hashCode(id_tipo_avanzamento);
+    }
+ @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TipoAvanzamento other = (TipoAvanzamento) obj;
+        return Objects.equals(id_tipo_avanzamento, other.getId_tipo_avanzamento());
+    }
+ 
+ @Override
+ public String toString() {
+     return "Order [TipoAvanzamento id=" + id_tipo_avanzamento + "]";
+ }
 
 }
