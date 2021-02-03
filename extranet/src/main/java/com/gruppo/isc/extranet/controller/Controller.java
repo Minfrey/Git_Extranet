@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Anno;
 import com.gruppo.isc.extranet.model.Attivita;
 import com.gruppo.isc.extranet.model.Avanzamento;
 import com.gruppo.isc.extranet.model.Commessa;
@@ -21,6 +22,7 @@ import com.gruppo.isc.extranet.model.Risorse;
 import com.gruppo.isc.extranet.model.Task;
 import com.gruppo.isc.extranet.model.TipoUsoRisorse;
 import com.gruppo.isc.extranet.model.UsoRisorse;
+import com.gruppo.isc.extranet.service.AnnoServiceImp;
 import com.gruppo.isc.extranet.service.AttivitaServiceImp;
 import com.gruppo.isc.extranet.service.AvanzamentoServiceImp;
 import com.gruppo.isc.extranet.service.CommessaServiceImp;
@@ -44,6 +46,8 @@ public class Controller
 	@Autowired
 	MeseServiceImp ms;
 	
+	@Autowired
+	AnnoServiceImp asi;
 	
 	@Autowired
 	AttivitaServiceImp as;
@@ -59,6 +63,7 @@ public class Controller
 	
 	@Autowired
 	AvanzamentoServiceImp avs;
+	
 	
 	@GetMapping("task")
     public ResponseEntity<List<Task>> getTaskList()
@@ -127,6 +132,13 @@ public class Controller
 		return urs.modUsoRisorse(u);
 	}
 	
+	@GetMapping("avanzamentolist/{id}")
+	public ResponseEntity<List<Avanzamento>> getAvanzamentoByCommessa(@PathVariable("id") int id)
+	{
+		List<Avanzamento> lista = avs.getAvanzamentoByAttivita2(id);
+		return new ResponseEntity<List<Avanzamento>>(lista,HttpStatus.OK);
+	}
+	
 	@PostMapping("avanzamento")
 	public String setAvanzamento(@RequestBody Avanzamento a)
 	{ 
@@ -146,5 +158,14 @@ public class Controller
 		String b  = as.modAttivita(a);
 		return b;
 	}
+	
+	@GetMapping("getanno")
+	public ResponseEntity<List<Anno>> getAnno()
+	{
+		List<Anno> lista = asi.getAnno();
+		return new ResponseEntity<List<Anno>>(lista,HttpStatus.OK);
+	}
+	
+	
 	
 }

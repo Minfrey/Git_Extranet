@@ -34,7 +34,7 @@ public class AttivitaRepoImp implements AttivitaRepo
 	  System.out.println("id commessa = "+a1.getId_commessa());
 	  
 	  	// le query devono essere fatte sulle entita non sul database
-	  	Query q =	em.createQuery("SELECT a FROM Attivita a WHERE a.commessa = :commessa", Attivita.class).setParameter("commessa", a1);
+	  	Query q =	em.createQuery("SELECT a FROM Attivita a WHERE a.commessa = :commessa").setParameter("commessa", a1);
 		return q.getResultList();
   }
 	

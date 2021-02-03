@@ -29,7 +29,7 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 		List<UsoRisorse> risorse = urr.getUsoRisorseList();
 		for(int i=0;i<risorse.size();i++)
 		{
-			if(u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
+			if(//u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
 			   u.getRisorse().getId_risorse().equals(risorse.get(i).getRisorse().getId_risorse()) &&
 			   u.getTipoUsoRisorse().getId_tipo_usorisorse().equals(risorse.get(i).getTipoUsoRisorse().getId_tipo_usorisorse()) &&
 			   u.getCommessa().getId_commessa().equals(risorse.get(i).getCommessa().getId_commessa()))
@@ -45,7 +45,7 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 		}
 		if(a==true)
 		{
-			messaggio="\"risorsa inserita con succeso\"";
+			messaggio="\"risorsa inserita con successo\"";
 			urr.setUsoRisorse(u);
 		}
 		
@@ -72,7 +72,7 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 	    List<UsoRisorse> risorse = urr.getUsoRisorseList();
 	    for(int i=0;i<risorse.size();i++)
 		{
-			if(u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
+			if(//u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
 			   u.getRisorse().getId_risorse().equals(risorse.get(i).getRisorse().getId_risorse()) &&
 			   u.getTipoUsoRisorse().getId_tipo_usorisorse().equals(risorse.get(i).getTipoUsoRisorse().getId_tipo_usorisorse()))
 			{

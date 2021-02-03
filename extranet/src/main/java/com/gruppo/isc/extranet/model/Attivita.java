@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -43,10 +44,29 @@ public class Attivita implements Serializable
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
 	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_attivita);
+	    }
+	 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Attivita other = (Attivita) obj;
+	        return Objects.equals(id_attivita, other.getId_attivita());
+	    }
 //	@JsonIgnore
 //	@OneToMany(mappedBy="attivita")
 //	private Set<UsoRisorse> usoRisorse;
-	
+	 @Override
+	 public String toString() {
+	     return "Order [Attivita id=" + id_attivita + "]";
+	 }
 	
 
 }
