@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -42,6 +43,11 @@ public class Attivita implements Serializable
 	@JsonIgnore
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
+	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_attivita);
+	    }
 	
 //	@JsonIgnore
 //	@OneToMany(mappedBy="attivita")

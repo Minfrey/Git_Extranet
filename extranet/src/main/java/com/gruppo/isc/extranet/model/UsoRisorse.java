@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -34,8 +36,13 @@ public class UsoRisorse implements Serializable
 	private Risorse risorse;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_id_mese", referencedColumnName ="id_mese",nullable=false)
+	@JoinColumn(name="fk_id_mese", nullable=false)
 	private Mese mese;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_id_anno", nullable=false)
+	private Anno anno;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_commessa", referencedColumnName ="id_commessa",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
@@ -53,6 +60,12 @@ public class UsoRisorse implements Serializable
 	
 	@Column(nullable=false)
 	private Double costi;
+	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_usorisorse);
+	    }
+	
 	
 	
 

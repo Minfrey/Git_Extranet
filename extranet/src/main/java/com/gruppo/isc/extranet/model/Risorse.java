@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ import lombok.Data;
 @Table(name="risorse")
 public class Risorse implements Serializable
 {
-	private static final long serialVersionUID = -3772780489311387115L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,10 @@ public class Risorse implements Serializable
 	@OneToMany(mappedBy = "risorse")
 	private Set<UsoRisorse> usorisorse;
 	
-	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_risorse);
+	    }
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -35,5 +36,9 @@ public class Task implements Serializable
 	@Column(nullable=false)
 	private String nome;
 	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_task);
+	    }
 	
 }
