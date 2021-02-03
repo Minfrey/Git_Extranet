@@ -182,7 +182,8 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	public List<Avanzamento> getAvanzamentoByAttivita2(int id)
 	{	
 		List<Avanzamento> a = arr.getAvanzamentoByAttivita2(id);
-		System.out.println(a.get(0).getAnno());
+		System.out.println(a.get(0).getAnno().getNumero());
+		System.out.println(a.get(0).getAttivita().getTask().getNome());
 		return arr.getAvanzamentoByAttivita2(id);
 	}
 	

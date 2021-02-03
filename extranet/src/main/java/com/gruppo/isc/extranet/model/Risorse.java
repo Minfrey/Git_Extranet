@@ -43,7 +43,22 @@ public class Risorse implements Serializable
 	        return Objects.hashCode(id_risorse);
 	    }
 	
-	
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Risorse other = (Risorse) obj;
+	        return Objects.equals(id_risorse, other.getId_risorse());
+	    }
+	 
+	 @Override
+	 public String toString() {
+	     return "Order [Risorse id=" + id_risorse + "]";
+	 }
 	
 
 }

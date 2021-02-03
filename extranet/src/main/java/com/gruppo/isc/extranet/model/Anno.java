@@ -1,7 +1,9 @@
 package com.gruppo.isc.extranet.model;
 
+import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Anno
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_anno;
 	
+	@Column(nullable=false)
 	private Integer numero;
 	
 	@JsonIgnore
@@ -35,5 +38,23 @@ public class Anno
 	@OneToMany(mappedBy="anno")
 	private Set<Avanzamento> avanzamento;
 	
-	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_anno);
+	    }
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Anno other = (Anno) obj;
+	        return Objects.equals(id_anno, other.getId_anno());
+	    }
+	 @Override
+	 public String toString() {
+	     return "Order [Anno id=" + id_anno + "]";
+	 }
 }

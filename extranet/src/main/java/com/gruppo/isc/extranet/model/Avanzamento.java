@@ -61,5 +61,21 @@ public class Avanzamento implements Serializable
 	        return Objects.hashCode(id_avanzamento);
 	    }
 	
-
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Avanzamento other = (Avanzamento) obj;
+	        return Objects.equals(id_avanzamento, other.getId_avanzamento());
+	    }
+	 
+	 @Override
+	 public String toString() {
+	     return "Order [Avanzamento id=" + id_avanzamento + "]";
+	 }
+	
 }

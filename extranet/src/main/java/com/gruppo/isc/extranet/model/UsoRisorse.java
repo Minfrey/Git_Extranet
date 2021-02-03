@@ -65,8 +65,23 @@ public class UsoRisorse implements Serializable
 	    public int hashCode() {
 	        return Objects.hashCode(id_usorisorse);
 	    }
-	
-	
+	 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        UsoRisorse other = (UsoRisorse) obj;
+	        return Objects.equals(id_usorisorse, other.getId_usorisorse());
+	    }
+	 
+	 @Override
+	 public String toString() {
+	     return "Order [Usorisorse id=" + id_usorisorse + "]";
+	 }
 	
 
 }

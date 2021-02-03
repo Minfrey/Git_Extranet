@@ -45,5 +45,20 @@ public class Mese implements Serializable
 	    public int hashCode() {
 	        return Objects.hashCode(id_mese);
 	    }
-	
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Mese other = (Mese) obj;
+	        return Objects.equals(id_mese, other.getId_mese());
+	    }
+	 
+	 @Override
+	 public String toString() {
+	     return "Order [Mese id=" + id_mese + "]";
+	 }
 }

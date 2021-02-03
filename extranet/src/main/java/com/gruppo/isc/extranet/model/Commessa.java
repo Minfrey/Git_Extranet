@@ -2,6 +2,7 @@ package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -53,5 +54,25 @@ public class Commessa implements Serializable
 	@OneToMany(mappedBy = "commessa")
 	private Set<UsoRisorse> UsoRisorse;
 	
+	@Override
+    public int hashCode() {
+        return Objects.hashCode(id_commessa);
+    }
+ @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Commessa other = (Commessa) obj;
+        return Objects.equals(id_commessa, other.getId_commessa());
+    }
 	
+ @Override
+ public String toString() {
+     return "Order [Commessa id=" + id_commessa + "]";
+ }
+
 }
