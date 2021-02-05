@@ -15,4 +15,5 @@ public interface AvanzamentoService
 	
 	public List<Object> getAvanzamentoByAttivita(int id);
 	public List<Avanzamento> getAvanzamentoByAttivita2(int id);
+	public List<Avanzamento> getAvanzamentoByCommessaType(int id, int idt);
 }
