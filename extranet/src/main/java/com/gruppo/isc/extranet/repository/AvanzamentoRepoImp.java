@@ -64,6 +64,33 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 		Query q = em.createQuery("SELECT a FROM Avanzamento a where a.attivita.commessa.id_commessa = :id").setParameter("id", id);
 		return q.getResultList();
 	}
+	@Override
+	public List<Avanzamento> getAvanzamentoByCommessaType(int id, int idt)
+	{
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :id AND a.tipoAvanzamento.id_tipo_avanzamento= :idt ORDER BY a.attivita.id_attivita,a.anno.numero,a.mese.id_mese	").setParameter("id", id).setParameter("idt",idt);
+		return q.getResultList();
+	}
+	@Override
+	public List<Avanzamento> controlloPercentuale(Avanzamento a)
+	{
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.attivita.id_attivita = :attivita ORDER BY a.anno.numero,a.mese.id_mese");
+		q.setParameter("commessa", a.getAttivita().getCommessa().getId_commessa());
+		q.setParameter("tipo", a.getTipoAvanzamento().getId_tipo_avanzamento());
+		q.setParameter("attivita", a.getAttivita().getId_attivita());
+		return q.getResultList();
+		
+	}
+	@Override
+	public List<Avanzamento> controlloInserimento(Avanzamento a)
+	{
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.anno.id_anno = :anno AND a.mese.id_mese = :mese AND a.attivita.id_attivita = :attivita ");
+		q.setParameter("commessa", a.getAttivita().getCommessa().getId_commessa());
+		q.setParameter("tipo", a.getTipoAvanzamento().getId_tipo_avanzamento());
+		q.setParameter("anno",a.getAnno().getId_anno());
+		q.setParameter("mese",a.getMese().getId_mese());
+		q.setParameter("attivita", a.getAttivita().getId_attivita());
+		return q.getResultList();
+	}
 	
 	
 }

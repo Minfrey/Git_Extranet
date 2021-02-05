@@ -139,6 +139,14 @@ public class Controller
 		return new ResponseEntity<List<Avanzamento>>(lista,HttpStatus.OK);
 	}
 	
+	@GetMapping("avanzamentolist/{id}/{idt}")
+	public ResponseEntity<List<Avanzamento>> getAvanzamentoByCommessa(@PathVariable("id") int id,@PathVariable("idt") int idt)
+	{
+		List<Avanzamento> lista = avs.getAvanzamentoByCommessaType(id,idt);
+		return new ResponseEntity<List<Avanzamento>>(lista,HttpStatus.OK);
+	}
+	
+	
 	@PostMapping("avanzamento")
 	public String setAvanzamento(@RequestBody Avanzamento a)
 	{ 
