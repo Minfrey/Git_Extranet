@@ -13,4 +13,6 @@ public interface UsoRisorseService
 	public List<UsoRisorse> getUsoRisorseList(int id);
 	
 	public String modUsoRisorse(UsoRisorse u);
+	
+	public List<UsoRisorse> getUsoRisorseByType(int id, int idt);
 }

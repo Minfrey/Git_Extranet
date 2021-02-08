@@ -1,6 +1,8 @@
 package com.gruppo.isc.extranet.service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +16,7 @@ import com.gruppo.isc.extranet.repository.CommessaRepoImp;
 @Service
 public class CommessaServiceImp implements CommessaService 
 {
+	private String messaggio = "";
 	@Autowired
 	CommessaRepoImp cr;
 	
@@ -21,8 +24,10 @@ public class CommessaServiceImp implements CommessaService
 	@Transactional
 	public int setCommessa(Commessa c)
 	{
-		return cr.setCommessa(c);
+	    	return  cr.setCommessa(c);
 	}
+	   
+	
 	
 	@Override
 	public Commessa getCommessaId(int id)

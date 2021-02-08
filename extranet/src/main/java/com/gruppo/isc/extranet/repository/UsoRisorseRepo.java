@@ -13,4 +13,8 @@ public interface UsoRisorseRepo
 	public void modUsoRisorse(UsoRisorse u);
 	
 	public List<UsoRisorse> getUsoRisorseList();
+	
+	public List<UsoRisorse> getUsoRisorseByType(int id, int idt);
+	
+	public List<UsoRisorse> controlloInserimento(UsoRisorse a);
 }

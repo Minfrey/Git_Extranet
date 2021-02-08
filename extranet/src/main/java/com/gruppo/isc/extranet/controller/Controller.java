@@ -174,6 +174,14 @@ public class Controller
 		return new ResponseEntity<List<Anno>>(lista,HttpStatus.OK);
 	}
 	
+	@GetMapping("usorisorselist/{id}/{idt}")
+	public ResponseEntity<List<UsoRisorse>> getUsoRisorse(@PathVariable("id") int id,@PathVariable("idt") int idt)
+	{
+		System.out.println("id :"+id+" idt :"+idt);
+		List<UsoRisorse> lista = urs.getUsoRisorseByType(id, idt);
+		return new ResponseEntity<List<UsoRisorse>>(lista,HttpStatus.OK);
+	}
+	
 	
 	
 }

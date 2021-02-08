@@ -80,6 +80,7 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 		return q.getResultList();
 		
 	}
+	
 	@Override
 	public List<Avanzamento> controlloInserimento(Avanzamento a)
 	{
