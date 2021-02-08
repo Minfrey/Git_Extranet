@@ -1,10 +1,13 @@
 package com.gruppo.isc.extranet.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import com.gruppo.isc.extranet.model.UsoRisorse;
 import com.gruppo.isc.extranet.repository.UsoRisorseRepoImp;
@@ -19,36 +22,48 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 	public String setUsoRisorse(UsoRisorse u) 
 	{
 		String messaggio ="";
-		boolean a = true;
 		Double ore = u.getOre();
 		Double tariffa =u.getRisorse().getTariffa();
 		Double costi = (ore*tariffa)*0.80;
 	    u.setCosti(costi);
 	    Double ricavi = ore*tariffa;
 	    u.setRicavi(ricavi);
-		List<UsoRisorse> risorse = urr.getUsoRisorseList();
-		for(int i=0;i<risorse.size();i++)
-		{
-			if(//u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
-			   u.getRisorse().getId_risorse().equals(risorse.get(i).getRisorse().getId_risorse()) &&
-			   u.getTipoUsoRisorse().getId_tipo_usorisorse().equals(risorse.get(i).getTipoUsoRisorse().getId_tipo_usorisorse()) &&
-			   u.getCommessa().getId_commessa().equals(risorse.get(i).getCommessa().getId_commessa()))
-			{
-				messaggio ="\"risorsa gia assegnata\"" ;
-				a=false;
-				break;
-			}
-			else
-			{
-				a=true;
-			}
-		}
-		if(a==true)
-		{
-			messaggio="\"risorsa inserita con successo\"";
-			urr.setUsoRisorse(u);
-		}
+	    
+	    
+	
+		Date inizio = u.getCommessa().getInizio();
+		System.out.println(inizio);
+		Date fine = u.getCommessa().getFine();
+		System.out.println(fine);
+		Calendar inizioc = new GregorianCalendar();
+		inizioc.setTime(inizio);
+		Calendar finec = new GregorianCalendar();
+		finec.setTime(fine);
 		
+		
+		Integer mesei= inizioc.get(Calendar.MONTH)+1;
+		System.out.println("Mese inizio "+mesei);
+		Integer mesef= finec.get(Calendar.MONTH)+1;
+		System.out.println("Mese fine "+mesef);
+		Integer annoi = inizioc.get(Calendar.YEAR);
+		System.out.println("Anno inizio "+annoi);
+		Integer annof = finec.get(Calendar.YEAR);
+		System.out.println("Anno fine "+annof);
+		
+		Integer mese = u.getMese().getId_mese(); 
+		System.out.println("mese commessa "+mese);
+		Integer anno = u.getAnno().getNumero();
+		System.out.println("anno commessa "+anno);
+		
+		if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
+		{	
+				messaggio="\"risorsa inserita con successo\"";
+				urr.setUsoRisorse(u);			
+		}
+		else
+		{
+			messaggio = "\"data inserita fuori dal periodo della commesa\"";
+		}
 		return messaggio;
 		
 	}
@@ -69,30 +84,50 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 	    u.setCosti(costi);
 	    Double ricavi = ore*tariffa;
 	    u.setRicavi(ricavi);
-	    List<UsoRisorse> risorse = urr.getUsoRisorseList();
-	    for(int i=0;i<risorse.size();i++)
+	    
+	    Date inizio = u.getCommessa().getInizio();
+		System.out.println(inizio);
+		Date fine = u.getCommessa().getFine();
+		System.out.println(fine);
+		Calendar inizioc = new GregorianCalendar();
+		inizioc.setTime(inizio);
+		Calendar finec = new GregorianCalendar();
+		finec.setTime(fine);
+		
+		
+		Integer mesei= inizioc.get(Calendar.MONTH)+1;
+		System.out.println("Mese inizio "+mesei);
+		Integer mesef= finec.get(Calendar.MONTH)+1;
+		System.out.println("Mese fine "+mesef);
+		Integer annoi = inizioc.get(Calendar.YEAR);
+		System.out.println("Anno inizio "+annoi);
+		Integer annof = finec.get(Calendar.YEAR);
+		System.out.println("Anno fine "+annof);
+		
+		Integer mese = u.getMese().getId_mese(); 
+		System.out.println("mese commessa "+mese);
+		Integer anno = u.getAnno().getNumero();
+		System.out.println("anno commessa "+anno);
+	    
+	    if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
 		{
-			if(//u.getMese().getId_mese().equals(risorse.get(i).getMese().getId_mese()) && 
-			   u.getRisorse().getId_risorse().equals(risorse.get(i).getRisorse().getId_risorse()) &&
-			   u.getTipoUsoRisorse().getId_tipo_usorisorse().equals(risorse.get(i).getTipoUsoRisorse().getId_tipo_usorisorse()))
-			{
-				urr.modUsoRisorse(u);
 				messaggio ="\"Modifica avvenuta con successo\"" ;
-				a=true;
-				break;
-			}
-			else
-			{
-				a=false;
-			}
+				urr.modUsoRisorse(u);
 		}
-	    if(a==false)
+	    else
 	    {
-	    	messaggio ="\"Modifica non possibile inserire nuovo\"" ;
+	    	messaggio = "\"data inserita fuori dal periodo della commesa\"";
 	    }
 	    return messaggio;
 	}
 	
+	@Override
+	public List<UsoRisorse> getUsoRisorseByType(int id, int idt)
+	{
+		 List<UsoRisorse> lista =urr.getUsoRisorseByType(id, idt);
+		System.out.println(lista.get(0).getCommessa().getNome()); 
+		return lista;
+	}
 	
 	
 }

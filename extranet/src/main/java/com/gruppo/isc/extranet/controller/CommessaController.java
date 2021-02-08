@@ -42,14 +42,7 @@ public class CommessaController
 	@PostMapping("commessa")
 	public int setCommessa(@RequestBody Commessa c)
 	{ 
-	   return cs.setCommessa(c);
-	}
-	
-	@PutMapping("modcommessa")
-	public String modCommessa(@RequestBody Commessa c)
-	{
-		String b = cs.modCommessa(c);
-		return b;
+	   return  cs.setCommessa(c);
 	}
 
 }
