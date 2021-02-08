@@ -1,6 +1,5 @@
 package com.gruppo.isc.extranet.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gruppo.isc.extranet.model.Gruppo;
@@ -18,11 +16,10 @@ import com.gruppo.isc.extranet.model.Utente;
 @Repository
 public class UtenteRepoImp implements UtenteRepo {
 
-	@PersistenceContext
-	EntityManager em;
+	
 	
 	@PersistenceContext
-	EntityManager am;
+	EntityManager em;
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
@@ -45,7 +42,7 @@ public class UtenteRepoImp implements UtenteRepo {
 		try {
 			utente = (Utente) q.getSingleResult();			
 		} catch (NoResultException e) {
-			// TODO: handle exception
+			utente = null;
 		}
 		
 		return utente;
@@ -104,25 +101,19 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	@Transactional
-	public void creaUtente(Utente u) {
+	@Transactional	
+	public void creaUtente(Utente u){
 		String password = "123";
 		int stato = 1;
 		int primoAccesso = 1;
-		Gruppo gruppo = new Gruppo();
-		Query g = em.createQuery("Select g from Gruppo g where g.descrizione=: descrizione");
-		g.setParameter("descrizione", u.getGruppo().getDescrizione());
-		gruppo = (Gruppo) g.getSingleResult();
-		
-		
-		Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
-		q.setParameter(1, u.getUsername());
-		q.setParameter(2, password);
-		q.setParameter(3, primoAccesso);
-		q.setParameter(4, stato);
-		q.setParameter(5, gruppo.getId());
-		
-		q.executeUpdate();
+
+			Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
+			q.setParameter(1, u.getUsername());
+			q.setParameter(2, password);
+			q.setParameter(3, primoAccesso);
+			q.setParameter(4, stato);
+			q.setParameter(5, u.getGruppo().getId());	
+
 	}
 		
 	
