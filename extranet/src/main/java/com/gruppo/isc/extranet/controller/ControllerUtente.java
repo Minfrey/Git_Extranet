@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class ControllerUtente {
 	@PutMapping("/modificaPassword")
 	public ResponseEntity<Boolean> modificaPassword(@RequestBody Utente u)
 	{
+		System.out.println("primo accesso = "+u.getPrimo_accesso());
 		Boolean modifica = us.modificaPassword(u);
 		return new ResponseEntity<Boolean>(modifica,HttpStatus.OK);
 	}

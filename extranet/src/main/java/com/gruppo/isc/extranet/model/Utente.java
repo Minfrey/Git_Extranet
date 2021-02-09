@@ -1,6 +1,5 @@
 package com.gruppo.isc.extranet.model;
 
-import java.beans.JavaBean;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -12,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 

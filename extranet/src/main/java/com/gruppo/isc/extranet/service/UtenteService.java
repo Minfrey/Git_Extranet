@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

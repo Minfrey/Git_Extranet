@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import com.gruppo.isc.extranet.model.Gruppo;

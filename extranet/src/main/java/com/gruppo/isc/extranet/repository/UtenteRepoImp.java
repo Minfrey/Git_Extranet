@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -63,7 +64,8 @@ public class UtenteRepoImp implements UtenteRepo {
 	@Transactional
 	public boolean modificaPassword(Utente u) {
 		boolean modifica = false;
-		Query q = em.createQuery("update Utente u set u.password = md5(:pass) where u.id=:id");
+		Query q = em.createQuery("update Utente u set u.password = md5(:pass), u.primo_accesso=:pa where u.id=:id");
+		q.setParameter("pa", u.getPrimo_accesso());
 		q.setParameter("pass", u.getPassword());
 		q.setParameter("id", u.getId());
 		try
@@ -71,6 +73,7 @@ public class UtenteRepoImp implements UtenteRepo {
 			if(q.executeUpdate()>0)
 			{
 				modifica=true;
+				
 			}
 		}
 		catch (IllegalStateException e) {
@@ -168,7 +171,7 @@ public class UtenteRepoImp implements UtenteRepo {
 			q.setParameter(3, primoAccesso);
 			q.setParameter(4, stato);
 			q.setParameter(5, u.getGruppo().getId());	
-
+			q.executeUpdate();
 	}
 
 
