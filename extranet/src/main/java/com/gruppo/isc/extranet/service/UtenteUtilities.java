@@ -19,4 +19,8 @@ public List<Utente> getAllUtenti(String descrizione);
 	
 	public List<Gruppo> getAlleGruppi();
 	
+	public Utente cercaUtente(Utente u);
+	
+	public boolean resetPassword(Utente u);
+	
 }

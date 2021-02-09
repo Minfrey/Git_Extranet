@@ -28,7 +28,7 @@ public class ControllerUtente {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@GetMapping
-	public ResponseEntity<List<Utente>> getAllUtenti(String descrizione)
+	public ResponseEntity<List<Utente>> getAllUtenti(@RequestParam String descrizione)
 	{
 		List<Utente> lista = us.getAllUtenti(descrizione);
 		return new ResponseEntity<List<Utente>>(lista,HttpStatus.OK);
@@ -69,7 +69,17 @@ public class ControllerUtente {
 	}
 
 	
+	
 	//*****METODO FINITO E FUNZIONANTE**********
+	@GetMapping("/cercaUtente")
+	public ResponseEntity<Utente> cercaUtente(@RequestBody Utente u)
+	{
+		Utente utente = us.cercaUtente(u);
+		return new ResponseEntity<Utente>(utente, HttpStatus.OK);
+	}
+	
+	
+	
 	@PostMapping("/crea")
 	public void creaUtente(@RequestBody Utente u)
 	{

@@ -115,6 +115,34 @@ public class UtenteRepoImp implements UtenteRepo {
 			q.setParameter(5, u.getGruppo().getId());	
 
 	}
+
+	@Override
+	public Utente cercaUtente(Utente u) {
+		Utente utente = new Utente();
+		
+		Query q = em.createQuery("select u from Utente u where u.username=:username");
+		q.setParameter("username", u.getUsername());
+		
+		try {
+			if(q.getSingleResult()!= null)
+			{
+				utente = (Utente) q.getSingleResult();
+			}
+			
+		} catch (NoResultException e) {
+			// TODO: handle exception
+		}
+		
+		return utente;
+	}
+
+	
+	@Transactional
+	@Override
+	public boolean resetPassword(Utente u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 		
 	
 	

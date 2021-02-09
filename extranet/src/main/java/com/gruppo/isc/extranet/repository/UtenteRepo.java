@@ -1,6 +1,5 @@
 package com.gruppo.isc.extranet.repository;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import com.gruppo.isc.extranet.model.Gruppo;
@@ -19,4 +18,8 @@ public interface UtenteRepo {
 	public boolean modificaPassword(Utente u);
 	
 	public List<Gruppo> getAlleGruppi();
+	
+	public Utente cercaUtente(Utente u);
+	
+	public boolean resetPassword(Utente u);
 }

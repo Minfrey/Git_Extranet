@@ -56,5 +56,16 @@ public class UtenteService implements UtenteUtilities {
 		
 	}
 
+	@Override
+	public Utente cercaUtente(Utente u) {
+		return ur.cercaUtente(u);
+	}
+
+	@Override
+	public boolean resetPassword(Utente u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 }
