@@ -78,6 +78,14 @@ public class ControllerUtente {
 		return new ResponseEntity<Utente>(utente, HttpStatus.OK);
 	}
 	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@PutMapping("/resetPassword")
+	public ResponseEntity<Boolean> resetPassword(@RequestBody Utente u)
+	{
+		Boolean reset = us.resetPassword(u);
+		return new ResponseEntity<Boolean>(reset, HttpStatus.OK);
+	}
+	
 	
 	
 	@PostMapping("/crea")

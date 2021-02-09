@@ -99,23 +99,9 @@ public class UtenteRepoImp implements UtenteRepo {
 		return disabilita;
 	}
 	
+	
+	
 	//*****METODO FINITO E FUNZIONANTE**********
-	@Override
-	@Transactional	
-	public void creaUtente(Utente u){
-		String password = "123";
-		int stato = 1;
-		int primoAccesso = 1;
-
-			Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
-			q.setParameter(1, u.getUsername());
-			q.setParameter(2, password);
-			q.setParameter(3, primoAccesso);
-			q.setParameter(4, stato);
-			q.setParameter(5, u.getGruppo().getId());	
-
-	}
-
 	@Override
 	public Utente cercaUtente(Utente u) {
 		Utente utente = new Utente();
@@ -140,13 +126,51 @@ public class UtenteRepoImp implements UtenteRepo {
 	@Transactional
 	@Override
 	public boolean resetPassword(Utente u) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean reset = false;
+		String password = "123";
+		int stato = 1;
+		int primoAccesso = 1;
+
+		
+		Query q = em.createQuery("update Utente u set u.password = md5(:pass), u.stato=:stato, u.primo_accesso =:primoaccesso where u.id=:id");
+		q.setParameter("pass", password);
+		q.setParameter("primoaccesso", primoAccesso);
+		q.setParameter("stato", stato);
+		q.setParameter("id", u.getId());	
+		
+		try {
+			if(q.executeUpdate()>0)
+			{
+				reset = true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
+		
+		return reset;
 	}
 		
 	
 	
-	
+	@Override
+	@Transactional	
+	public void creaUtente(Utente u){
+		String password = "123";
+		int stato = 1;
+		int primoAccesso = 1;
+
+			Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
+			q.setParameter(1, u.getUsername());
+			q.setParameter(2, password);
+			q.setParameter(3, primoAccesso);
+			q.setParameter(4, stato);
+			q.setParameter(5, u.getGruppo().getId());	
+
+	}
+
 
 
 

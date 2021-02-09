@@ -63,8 +63,7 @@ public class UtenteService implements UtenteUtilities {
 
 	@Override
 	public boolean resetPassword(Utente u) {
-		// TODO Auto-generated method stub
-		return false;
+		return ur.resetPassword(u);
 	}
 
 	
