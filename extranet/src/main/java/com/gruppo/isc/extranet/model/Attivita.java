@@ -29,9 +29,7 @@ public class Attivita implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_attivita;	
 	
-	@ManyToOne
-	@JoinColumn(name="fk_id_task",referencedColumnName = "id_task", nullable = false)
-	private Task task;
+	
 
 	@ManyToOne
 	@JoinColumn(name="fk_id_commessa",referencedColumnName = "id_commessa",nullable = false)
@@ -39,6 +37,9 @@ public class Attivita implements Serializable
 	
 	@Column(name="valore",nullable=false)
 	private Double valore;
+	
+	@Column(name="descrizione",nullable=false)
+	private String descrizione;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="attivita")

@@ -12,8 +12,7 @@ public interface AvanzamentoService
 	public String modAvanzamento(Avanzamento a);
 	
 	public List<Avanzamento> getListAvanzamento();
-	
-	public List<Object> getAvanzamentoByAttivita(int id);
+
 	public List<Avanzamento> getAvanzamentoByAttivita2(int id);
 	public List<Avanzamento> getAvanzamentoByCommessaType(int id, int idt);
 }

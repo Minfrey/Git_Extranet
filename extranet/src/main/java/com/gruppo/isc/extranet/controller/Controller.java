@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gruppo.isc.extranet.model.Anno;
 import com.gruppo.isc.extranet.model.Attivita;
 import com.gruppo.isc.extranet.model.Avanzamento;
-import com.gruppo.isc.extranet.model.Commessa;
 import com.gruppo.isc.extranet.model.Mese;
 import com.gruppo.isc.extranet.model.Risorse;
-import com.gruppo.isc.extranet.model.Task;
+
 import com.gruppo.isc.extranet.model.TipoUsoRisorse;
 import com.gruppo.isc.extranet.model.UsoRisorse;
 import com.gruppo.isc.extranet.service.AnnoServiceImp;
 import com.gruppo.isc.extranet.service.AttivitaServiceImp;
 import com.gruppo.isc.extranet.service.AvanzamentoServiceImp;
-import com.gruppo.isc.extranet.service.CommessaServiceImp;
+
 import com.gruppo.isc.extranet.service.MeseServiceImp;
 import com.gruppo.isc.extranet.service.RisorseServiceImp;
-import com.gruppo.isc.extranet.service.TaskServiceImp;
+
 import com.gruppo.isc.extranet.service.TipoUsoRisorseServiceImp;
 import com.gruppo.isc.extranet.service.UsoRisorseServiceImp;
 
@@ -39,10 +38,7 @@ import com.gruppo.isc.extranet.service.UsoRisorseServiceImp;
 @RestController
 @CrossOrigin(origins =  "http://localhost:4200")
 public class Controller 
-{
-	@Autowired
-	TaskServiceImp ts;
-	
+{	
 	@Autowired
 	MeseServiceImp ms;
 	
@@ -65,12 +61,7 @@ public class Controller
 	AvanzamentoServiceImp avs;
 	
 	
-	@GetMapping("task")
-    public ResponseEntity<List<Task>> getTaskList()
-	{
-		List<Task> lista = ts.getTaskList();
-		return new ResponseEntity<List<Task>>(lista,HttpStatus.OK);
-	}
+
 	
 	@GetMapping("risorse")
     public ResponseEntity<List<Risorse>> getRisorseList()
@@ -100,7 +91,7 @@ public class Controller
 	@PostMapping("assegnaattivita")
 	public void setAttivita(@RequestBody Attivita a)
 	{
-		System.out.println(a.getTask());
+//		System.out.println(a.getTask());
 		System.out.println(a.getCommessa());
 		System.out.println(a.getValore());
 		as.setAttivita(a);
