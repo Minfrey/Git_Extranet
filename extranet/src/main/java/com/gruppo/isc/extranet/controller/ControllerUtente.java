@@ -88,6 +88,14 @@ public class ControllerUtente {
 		return new ResponseEntity<Boolean>(reset, HttpStatus.OK);
 	}
 	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@PostMapping("/confrontaPassword")
+	public ResponseEntity<Boolean> confrontaPassword(@RequestBody Utente u)
+	{
+		Boolean confronto = us.confrontaPassword(u);
+		return new ResponseEntity<Boolean>(confronto, HttpStatus.OK);
+	}
+	
 	
 	
 	@PostMapping("/crea")

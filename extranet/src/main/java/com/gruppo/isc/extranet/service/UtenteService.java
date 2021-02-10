@@ -50,22 +50,29 @@ public class UtenteService implements UtenteUtilities {
 	}
 
 
-	//*****METODO FINITO E FUNZIONANTE**********
-	@Override
-	public void creaUtente(Utente u) {
-		ur.creaUtente(u);
-		
-	}
 
+	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public Utente cercaUtente(Utente u) {
 		return ur.cercaUtente(u);
 	}
 
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public boolean resetPassword(Utente u) {
 		return ur.resetPassword(u);
 	}
 
+	@Override
+	public boolean confrontaPassword(Utente u) {
+		return ur.confrontaPassword(u);
+	}
+
+	@Override
+	public void creaUtente(Utente u) {
+		ur.creaUtente(u);
+		
+	}
 	
 }

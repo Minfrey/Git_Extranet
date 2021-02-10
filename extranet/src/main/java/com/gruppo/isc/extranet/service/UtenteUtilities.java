@@ -24,4 +24,6 @@ public List<Utente> getAllUtenti(String descrizione);
 	
 	public boolean resetPassword(Utente u);
 	
+	public boolean confrontaPassword(Utente u);
+	
 }

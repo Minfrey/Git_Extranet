@@ -126,6 +126,7 @@ public class UtenteRepoImp implements UtenteRepo {
 	}
 
 	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Transactional
 	@Override
 	public boolean resetPassword(Utente u) {
@@ -155,7 +156,26 @@ public class UtenteRepoImp implements UtenteRepo {
 		
 		return reset;
 	}
+	
+	
+	
+	@Override
+	public boolean confrontaPassword(Utente u) {
+		boolean confronto = false;
+		Query q = em.createQuery("select u from Utente u where u.id=:id and u.password = md5(:password)");
+		q.setParameter("id", u.getId());
+		q.setParameter("password", u.getPassword());
 		
+		try {
+			if(q.getSingleResult()!=null)
+			{
+				confronto=true;
+			}
+		} catch (NoResultException e) {
+			// TODO: handle exception
+		}	
+		return confronto;
+	}
 	
 	
 	@Override
@@ -173,6 +193,8 @@ public class UtenteRepoImp implements UtenteRepo {
 			q.setParameter(5, u.getGruppo().getId());	
 			q.executeUpdate();
 	}
+
+
 
 
 

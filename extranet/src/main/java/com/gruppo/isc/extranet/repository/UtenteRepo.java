@@ -23,4 +23,6 @@ public interface UtenteRepo {
 	public Utente cercaUtente(Utente u);
 	
 	public boolean resetPassword(Utente u);
+	
+	public boolean confrontaPassword(Utente u);
 }
