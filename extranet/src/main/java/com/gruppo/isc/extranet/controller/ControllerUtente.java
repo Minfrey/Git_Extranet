@@ -49,7 +49,6 @@ public class ControllerUtente {
 	@PutMapping("/modificaPassword")
 	public ResponseEntity<Boolean> modificaPassword(@RequestBody Utente u)
 	{
-		System.out.println("primo accesso = "+u.getPrimo_accesso());
 		Boolean modifica = us.modificaPassword(u);
 		return new ResponseEntity<Boolean>(modifica,HttpStatus.OK);
 	}
@@ -99,8 +98,9 @@ public class ControllerUtente {
 	
 	
 	@PostMapping("/crea")
-	public void creaUtente(@RequestBody Utente u)
+	public ResponseEntity<Boolean> creaUtente(@RequestBody Utente u)
 	{
-		us.creaUtente(u);
+		Boolean creato = us.creaUtente(u);
+		return new ResponseEntity<Boolean>(creato, HttpStatus.OK);
 	}	
 }

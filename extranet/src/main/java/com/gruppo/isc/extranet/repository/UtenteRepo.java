@@ -12,7 +12,7 @@ public interface UtenteRepo {
 	
 	public boolean disabilitaUtente(Utente u);
 	
-	public void creaUtente(Utente u);
+	public boolean creaUtente(Utente u);
 	
 	public Utente accesso(Utente u);
 	

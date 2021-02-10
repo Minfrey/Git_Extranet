@@ -6,10 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
@@ -179,8 +181,9 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	
 	@Override
-	@Transactional	
-	public void creaUtente(Utente u){
+	@Transactional()
+	public boolean creaUtente(Utente u){
+		boolean creato = false;
 		String password = "123";
 		int stato = 1;
 		int primoAccesso = 1;
@@ -191,7 +194,16 @@ public class UtenteRepoImp implements UtenteRepo {
 			q.setParameter(3, primoAccesso);
 			q.setParameter(4, stato);
 			q.setParameter(5, u.getGruppo().getId());	
-			q.executeUpdate();
+			if(q.executeUpdate()>0)
+			{
+				creato=true;
+			}
+			else
+			{
+				 creato=false;
+			}			
+	
+		return creato;
 	}
 
 

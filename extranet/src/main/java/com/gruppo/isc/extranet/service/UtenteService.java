@@ -70,8 +70,8 @@ public class UtenteService implements UtenteUtilities {
 	}
 
 	@Override
-	public void creaUtente(Utente u) {
-		ur.creaUtente(u);
+	public boolean creaUtente(Utente u) {
+		return ur.creaUtente(u);
 		
 	}
 	
