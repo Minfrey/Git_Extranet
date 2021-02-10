@@ -2,6 +2,7 @@ package com.gruppo.isc.extranet.model;
 
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +38,10 @@ public class Avanzamento implements Serializable
 	
 	@Column(name="percentuale",nullable=false)
 	private Integer percentuale;
+	
+	
+	@Column(name="consolida",nullable=true)
+	private Date consolida;
 	
 	
 	@ManyToOne

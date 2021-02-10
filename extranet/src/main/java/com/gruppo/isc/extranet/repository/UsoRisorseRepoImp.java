@@ -1,3 +1,4 @@
+
 package com.gruppo.isc.extranet.repository;
 
 import java.util.List;
