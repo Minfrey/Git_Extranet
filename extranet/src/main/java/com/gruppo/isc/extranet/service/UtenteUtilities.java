@@ -20,10 +20,12 @@ public List<Utente> getAllUtenti(String descrizione);
 	
 	public List<Gruppo> getAlleGruppi();
 	
-	public Utente cercaUtente(Utente u);
+	public List<Utente> cercaUtente(String u);
 	
 	public boolean resetPassword(Utente u);
 	
 	public boolean confrontaPassword(Utente u);
+	
+	public List<Utente> cercaUtenteDiGruppo(String utente, String gruppo);
 	
 }

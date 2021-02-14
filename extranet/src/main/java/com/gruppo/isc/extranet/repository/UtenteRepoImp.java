@@ -1,17 +1,15 @@
 package com.gruppo.isc.extranet.repository;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.UnexpectedRollbackException;
 
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
@@ -108,23 +106,20 @@ public class UtenteRepoImp implements UtenteRepo {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public Utente cercaUtente(Utente u) {
-		Utente utente = new Utente();
+	public List<Utente> cercaUtente(String u) {
+		List<Utente> utenti = new ArrayList<Utente>();
 		
 		Query q = em.createQuery("select u from Utente u where u.username=:username");
-		q.setParameter("username", u.getUsername());
+		q.setParameter("username", u);
 		
 		try {
-			if(q.getSingleResult()!= null)
-			{
-				utente = (Utente) q.getSingleResult();
-			}
+			utenti =q.getResultList();
 			
 		} catch (NoResultException e) {
 			// TODO: handle exception
 		}
 		
-		return utente;
+		return utenti;
 	}
 
 	
@@ -180,6 +175,27 @@ public class UtenteRepoImp implements UtenteRepo {
 	}
 	
 	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@Override
+	public List<Utente> cercaUtenteDiGruppo(String utente, String gruppo) {
+		List<Utente> utenteCercato = new ArrayList<Utente>();
+		Query q = em.createQuery("select u from Utente u where u.username =:user and u.gruppo.descrizione=:descr");
+		q.setParameter("user", utente);
+		q.setParameter("descr",gruppo);
+		try {
+			utenteCercato = q.getResultList();
+			if(utenteCercato==null)
+			{
+				utenteCercato=null;
+			}
+		} catch (NoResultException e) {
+			// TODO: handle exception
+		}
+		return utenteCercato;
+	}
+
+	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	@Transactional()
 	public boolean creaUtente(Utente u){
@@ -187,24 +203,32 @@ public class UtenteRepoImp implements UtenteRepo {
 		String password = "123";
 		int stato = 1;
 		int primoAccesso = 1;
-
+		Utente ute = null;
+		
+		try {
+			Query utente = em.createQuery("select u From Utente u where u.username =:user");
+			utente.setParameter("user", u.getUsername());
+			ute = (Utente) utente.getSingleResult();
+		} catch (NoResultException e) {
+			// TODO: handle exception
+		}
+		
+		if(ute == null) {
+			
 			Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
 			q.setParameter(1, u.getUsername());
 			q.setParameter(2, password);
 			q.setParameter(3, primoAccesso);
 			q.setParameter(4, stato);
-			q.setParameter(5, u.getGruppo().getId());	
-			if(q.executeUpdate()>0)
-			{
-				creato=true;
-			}
-			else
-			{
-				 creato=false;
-			}			
-	
+			q.setParameter(5, u.getGruppo().getId());
+			q.executeUpdate();
+			creato = true;
+		}
+		
 		return creato;
 	}
+
+	
 
 
 

@@ -54,7 +54,7 @@ public class UtenteService implements UtenteUtilities {
 	
 	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
-	public Utente cercaUtente(Utente u) {
+	public List<Utente> cercaUtente(String u) {
 		return ur.cercaUtente(u);
 	}
 
@@ -64,15 +64,25 @@ public class UtenteService implements UtenteUtilities {
 		return ur.resetPassword(u);
 	}
 
+	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public boolean confrontaPassword(Utente u) {
 		return ur.confrontaPassword(u);
 	}
 
+	//*****METODO FINITO E FUNZIONANTE**********
+	@Override
+	public List<Utente> cercaUtenteDiGruppo(String utente, String gruppo) {
+		return ur.cercaUtenteDiGruppo(utente, gruppo);
+	}
+	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@Override
 	public boolean creaUtente(Utente u) {
 		return ur.creaUtente(u);
 		
 	}
+
 	
 }

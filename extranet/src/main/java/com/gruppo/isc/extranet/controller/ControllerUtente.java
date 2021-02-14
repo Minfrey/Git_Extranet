@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +29,8 @@ public class ControllerUtente {
 	UtenteService us;
 	
 	//*****METODO FINITO E FUNZIONANTE**********
-	@GetMapping
-	public ResponseEntity<List<Utente>> getAllUtenti(@RequestParam String descrizione)
+	@GetMapping("/{descrizione}")
+	public ResponseEntity<List<Utente>> getAllUtenti(@PathVariable String descrizione)
 	{
 		List<Utente> lista = us.getAllUtenti(descrizione);
 		return new ResponseEntity<List<Utente>>(lista,HttpStatus.OK);
@@ -72,11 +73,11 @@ public class ControllerUtente {
 	
 	
 	//*****METODO FINITO E FUNZIONANTE**********
-	@GetMapping("/cercaUtente")
-	public ResponseEntity<Utente> cercaUtente(@RequestBody Utente u)
+	@GetMapping("/cercaUtente/{cerca}")
+	public ResponseEntity<List<Utente>> cercaUtente(@PathVariable String cerca)
 	{
-		Utente utente = us.cercaUtente(u);
-		return new ResponseEntity<Utente>(utente, HttpStatus.OK);
+		List<Utente> utente = us.cercaUtente(cerca);
+		return new ResponseEntity<List<Utente>>(utente, HttpStatus.OK);
 	}
 	
 	//*****METODO FINITO E FUNZIONANTE**********
@@ -96,11 +97,21 @@ public class ControllerUtente {
 	}
 	
 	
+	//*****METODO FINITO E FUNZIONANTE**********
+	@GetMapping("/cercaUtenteGruppo/{username}/{gruppo}")
+	public ResponseEntity<List<Utente>> cercaUtenteDiGruppo (@PathVariable String username, @PathVariable String gruppo)
+	{
+		List<Utente> utenteCercato = us.cercaUtenteDiGruppo(username, gruppo);
+		return new ResponseEntity<List<Utente>>(utenteCercato, HttpStatus.OK);
+	}
 	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@PostMapping("/crea")
 	public ResponseEntity<Boolean> creaUtente(@RequestBody Utente u)
 	{
 		Boolean creato = us.creaUtente(u);
 		return new ResponseEntity<Boolean>(creato, HttpStatus.OK);
 	}	
+	
+	
 }
