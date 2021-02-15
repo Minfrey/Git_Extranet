@@ -15,4 +15,5 @@ public interface AvanzamentoService
 
 	public List<Avanzamento> getAvanzamentoByAttivita2(int id);
 	public List<Avanzamento> getAvanzamentoByCommessaType(int id, int idt);
+	public String consolidaav(Avanzamento a);
 }

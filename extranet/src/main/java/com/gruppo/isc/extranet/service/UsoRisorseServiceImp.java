@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.gruppo.isc.extranet.model.Avanzamento;
 import com.gruppo.isc.extranet.model.UsoRisorse;
 import com.gruppo.isc.extranet.repository.UsoRisorseRepoImp;
 
@@ -108,15 +110,22 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 		System.out.println("mese commessa "+mese);
 		Integer anno = u.getAnno().getNumero();
 		System.out.println("anno commessa "+anno);
-	    
-	    if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
-		{
-				messaggio ="\"Modifica avvenuta con successo\"" ;
-				urr.modUsoRisorse(u);
-		}
+	    if(u.getConsolida()==null)
+	    {
+		    if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
+			{
+		    	
+					messaggio ="\"Modifica avvenuta con successo\"" ;
+					urr.modUsoRisorse(u);
+			}
+		    else
+		    {
+		    	messaggio = "\"data inserita fuori dal periodo della commesa\"";
+		    }
+	    }
 	    else
 	    {
-	    	messaggio = "\"data inserita fuori dal periodo della commesa\"";
+	    	messaggio = "\"Parametro consolidato modifica non possibile\"";
 	    }
 	    return messaggio;
 	}
@@ -127,6 +136,23 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 		 List<UsoRisorse> lista =urr.getUsoRisorseByType(id, idt);
 		System.out.println(lista.get(0).getCommessa().getNome()); 
 		return lista;
+	}
+	
+	@Override
+	@Transactional
+	public String consolidaUso(UsoRisorse u)
+	{
+		String messaggio = "";
+		UsoRisorse b = urr.consolidaUso(u);
+		if(b.getConsolida()!=null)
+		{
+			messaggio="\"Consolidato\"";
+		}
+		else
+		{
+			messaggio="\"Non Consolidato\"";
+		}
+		return messaggio;
 	}
 	
 	

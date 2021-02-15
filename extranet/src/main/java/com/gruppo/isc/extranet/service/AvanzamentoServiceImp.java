@@ -30,6 +30,9 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	@Autowired
 	AvanzamentoRepoImp arr;
 	
+	@Autowired 
+	CommessaRepoImp cri;
+	
 	@Override
 	@Transactional
 	public String setAvanzamento(Avanzamento a)
@@ -64,46 +67,109 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		System.out.println("mese commessa "+mese);
 		Integer anno = a.getAnno().getNumero();
 		System.out.println("anno commessa "+anno);
-				
+		
+//		boolean bool;
+//		
+//		int maggioredeiminori = 0;
+//		int minoredeimaggiori = 100;
+//		Avanzamento minoreav = new Avanzamento();
+//		Avanzamento maggioreav = new Avanzamento();
+		
 		if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
 		{	
-			List<Avanzamento> percent = arr.controlloPercentuale(a);
-			for(int i=0;i<percent.size();i++)	
-			{
-				if(percent.get(i).getAnno().getNumero()>=a.getAnno().getNumero());
-					if(percent.get(i).getMese().getId_mese()<=a.getMese().getId_mese());
-					
-			}
-			List<Avanzamento> controllo = arr.controlloInserimento(a);
-					
-					if(controllo.size()>0 && controllo.size()<=1)
-					{
-						messaggio = "\"Esiste gia un avanzamento di questo tipo in questa data\"";
-					}
-					else
-					{
-						arr.setAvanzamento(a);
-						messaggio = ("\"Attivita Inserita\"");
-					}
-					
-//					if(a.getPercentuale()<=contperc)
-//					{
-//						messaggio = ("\"Percentuale minore di una inserita precedentemente in questo avanzamento\"");
-//					}
-//					if(a.getPercentuale()>=contpercnext)
-//					{
-//						messaggio = ("\"Percentuale maggiore gia presente in questo avanzamento\"");
-//					}
-				
+			arr.setAvanzamento(a);
+			messaggio = ("\"Attivita minore Inserita\"");			
 		}
+//			List<Avanzamento> percent = arr.controlloPercentuale(a);
+//			for(int i=0;i<percent.size();i++)	
+//			{
+//				System.out.println("Attivita "+percent.get(i).getAttivita().getDescrizione()+" "+i);
+//				
+//				if(a.getAnno().getNumero()>=percent.get(i).getAnno().getNumero() && 
+//				   a.getMese().getId_mese()>percent.get(i).getMese().getId_mese() &&
+//			       a.getPercentuale()>percent.get(i).getPercentuale())
+//				{
+//					System.out.println("percentuale corrente Mdm :"+a.getPercentuale());
+//					if(maggioredeiminori<percent.get(i).getPercentuale())
+//					{
+//						maggioredeiminori=percent.get(i).getPercentuale();
+//						maggioreav= percent.get(i);
+//					}
+//				}
+//				
+//				if(a.getAnno().getNumero()<=percent.get(i).getAnno().getNumero() && 
+//				   a.getMese().getId_mese()<percent.get(i).getMese().getId_mese() &&
+//				   a.getPercentuale()<percent.get(i).getPercentuale())
+//				{
+//					System.out.println("percentuale corrente mdM:"+a.getPercentuale());
+//					if(minoredeimaggiori>percent.get(i).getPercentuale())
+//					{
+//						minoredeimaggiori=percent.get(i).getPercentuale();
+//						minoreav= percent.get(i);
+//					}
+//				}
+//				
+//			}
+//			List<Avanzamento> controllo = arr.controlloInserimento(a);
+//					
+//					if(controllo.size()>0 && controllo.size()<=1)
+//					{
+//						messaggio = "\"Esiste gia un avanzamento di questo tipo in questa data\"";
+//					}
+//					else
+//					{
+//						System.out.println(maggioreav);
+//						if(maggioreav.getAnno()!=null)
+//						{
+//							if(		   
+//									   a.getAnno().getNumero()>=maggioreav.getAnno().getNumero() && 
+//									   a.getMese().getId_mese()>maggioreav.getMese().getId_mese() &&
+//								       a.getPercentuale()>maggioreav.getPercentuale())
+//							{
+//								arr.setAvanzamento(a);
+//								messaggio = ("\"Attivita minore Inserita\"");
+//							}
+//						}
+//						if(minoreav.getAnno()!=null)
+//						{
+//							if(	
+//									a.getAnno().getNumero()<=minoreav.getAnno().getNumero() && 
+//									a.getMese().getId_mese()<minoreav.getMese().getId_mese() &&
+//									a.getPercentuale()<minoreav.getPercentuale())
+//							{
+//								arr.setAvanzamento(a);
+//								messaggio = ("\"Attivita maggiore inserita\"");
+//							}
+//						}
+//						if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+//						{
+//							// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
+//							// aggiungere fattura
+//							cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
+//						}
+//						
+//						if(a.getPercentuale()>minoredeimaggiori && a.getPercentuale()<maggioredeiminori)
+//						{
+//							System.out.println("minore :"+minoredeimaggiori);
+//							System.out.println("maggiore : "+maggioredeiminori);
+//							arr.setAvanzamento(a);
+//							messaggio = ("\"Attivita Inserita\"");
+//						}
+//						else
+//						{
+//							System.out.println("minore :"+minoredeimaggiori);
+//							System.out.println("maggiore : "+maggioredeiminori);
+//							messaggio = ("\"Errore\"");
+//						}
+//						
+//					}
+//				
+//			}
 		else
 		{
 			messaggio="\"Data non corretta\"";
 		}
-//				else
-//				{
-//					messaggio = ("\"Percentuale minore di una inserita precedentemente in questo avanzamento\"");
-//				}
+
 		return messaggio;
 	}
 	
@@ -114,7 +180,8 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	public String modAvanzamento(Avanzamento a)
 	{
 		String messaggio="";
-		if(a.getConsolida()!=null)
+		Avanzamento consolid = arr.getAvanzamentoByID(a.getId_avanzamento());
+		if(consolid.getConsolida()==null)
 			{
 			//calcola valore da percentuale
 			Integer percentualelocale = a.getPercentuale();
@@ -135,8 +202,15 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 					//quando l'id e lo stesso di quello da modificare allora 
 					if(percent.get(i).getId_avanzamento()==a.getId_avanzamento())
 					{
-						contpercnext=percent.get(i+1).getPercentuale();
-						break;
+						if(i+1<percent.size())
+						{
+							contpercnext=percent.get(i+1).getPercentuale();
+							break;
+						}
+						else
+						{
+							contpercnext=(a.getPercentuale()+1);
+						}
 					}
 			}
 				
@@ -172,11 +246,6 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		return arr.getAvanzamentoList();
 	}
 	
-//	public List<Object> getAvanzamentoByAttivita(int id)
-//	{	
-//		return arr.getAvanzamentoByAttivita(id);
-//	}
-	
 	public List<Avanzamento> getAvanzamentoByAttivita2(int id)
 	{	
 		List<Avanzamento> a = arr.getAvanzamentoByAttivita2(id);
@@ -189,5 +258,20 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		return arr.getAvanzamentoByCommessaType(id, idt);
 	}
 	
+	@Transactional
+	public String consolidaav(Avanzamento a)
+	{
+		String messaggio = "";
+		Avanzamento b = arr.consolidav(a);
+		if(b.getConsolida()!=null)
+		{
+			messaggio="\"Consolidato\"";
+		}
+		else
+		{
+			messaggio="\"Non Consolidato\"";
+		}
+		return messaggio;
+	}
 	
 }

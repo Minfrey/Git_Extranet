@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Objects;
 
 import javax.annotation.Generated;
@@ -44,6 +45,7 @@ public class UsoRisorse implements Serializable
 	private Anno anno;
 	
 	
+	
 	@ManyToOne
 	@JoinColumn(name="fk_id_commessa", referencedColumnName ="id_commessa",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
 	private Commessa commessa;
@@ -60,6 +62,9 @@ public class UsoRisorse implements Serializable
 	
 	@Column(nullable=false)
 	private Double costi;
+	
+	@Column(name="consolida",nullable=true)
+	private Date consolida;
 	
 	 @Override
 	    public int hashCode() {

@@ -14,4 +14,6 @@ public interface AvanzamentoRepo
 	public List<Avanzamento> getAvanzamentoByCommessaType(int id, int idt);
 	public List<Avanzamento> controlloInserimento(Avanzamento a);
 	public List<Avanzamento> controlloPercentuale(Avanzamento a);
+	public Avanzamento getAvanzamentoByID(int id);
+	public Avanzamento consolidav(Avanzamento a);
 }

@@ -43,6 +43,9 @@ public class Avanzamento implements Serializable
 	@Column(name="consolida",nullable=true)
 	private Date consolida;
 	
+	@Column(name="fattura",nullable=true)
+	private String fattura;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_attivita", referencedColumnName = "id_attivita" , nullable=false)

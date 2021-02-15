@@ -71,5 +71,11 @@ public class UsoRisorseRepoImp implements UsoRisorseRepo
 		return q.getResultList();
 	}
 	
+	@Override
+	public UsoRisorse consolidaUso(UsoRisorse u)
+	{
+		return em.merge(u);
+	}
+	
 	
 }

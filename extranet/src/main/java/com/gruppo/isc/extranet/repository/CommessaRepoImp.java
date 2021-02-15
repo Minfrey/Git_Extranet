@@ -45,9 +45,18 @@ public class CommessaRepoImp implements CommessaRepo
 	}
 	
 	@Override
+	@Transactional
 	public Commessa modCommessa(Commessa c)
 	{
 		Commessa a = em.merge(c);
 		return a;
+	}
+	
+	@Override 
+	public void fatturatoCommessa(Double fatturato, Integer id)
+	{
+		Commessa c  = em.find(Commessa.class, id);
+		c.setFatturato(fatturato);
+		em.merge(c);
 	}
 }

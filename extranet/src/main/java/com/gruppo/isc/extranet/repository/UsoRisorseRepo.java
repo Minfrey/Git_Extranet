@@ -17,4 +17,6 @@ public interface UsoRisorseRepo
 	public List<UsoRisorse> getUsoRisorseByType(int id, int idt);
 	
 	public List<UsoRisorse> controlloInserimento(UsoRisorse a);
+	
+	public UsoRisorse consolidaUso(UsoRisorse u);
 }

@@ -15,4 +15,6 @@ public interface UsoRisorseService
 	public String modUsoRisorse(UsoRisorse u);
 	
 	public List<UsoRisorse> getUsoRisorseByType(int id, int idt);
+	
+	public String consolidaUso(UsoRisorse u);
 }
