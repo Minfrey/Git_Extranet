@@ -55,10 +55,17 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :id AND a.tipoAvanzamento.id_tipo_avanzamento= :idt ORDER BY a.attivita.id_attivita,a.anno.numero,a.mese.id_mese	").setParameter("id", id).setParameter("idt",idt);
 		return q.getResultList();
 	}
+	
+	@Override
+	public Avanzamento getAvanzamentoByID(int id)
+	{
+		return  em.find(Avanzamento.class, id);
+	}
+	
 	@Override
 	public List<Avanzamento> controlloPercentuale(Avanzamento a)
 	{
-		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.attivita.id_attivita = :attivita ORDER BY a.attivita,a.percentuale,a.anno.numero,a.mese.id_mese");
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.attivita.id_attivita = :attivita ORDER BY a.percentuale,a.anno.numero,a.mese.id_mese");
 		q.setParameter("commessa", a.getAttivita().getCommessa().getId_commessa());
 		q.setParameter("tipo", a.getTipoAvanzamento().getId_tipo_avanzamento());
 		q.setParameter("attivita", a.getAttivita().getId_attivita());
@@ -76,6 +83,13 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 		q.setParameter("mese",a.getMese().getId_mese());
 		q.setParameter("attivita", a.getAttivita().getId_attivita());
 		return q.getResultList();
+	}
+	
+	@Override
+	public Avanzamento consolidav(Avanzamento a)
+	{
+		Avanzamento b = em.merge(a);
+		return b;
 	}
 
 	

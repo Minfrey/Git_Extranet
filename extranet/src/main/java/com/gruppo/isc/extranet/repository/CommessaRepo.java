@@ -13,4 +13,6 @@ public interface CommessaRepo
 	public List<Commessa> getListaCommessa();
 
 	public Commessa modCommessa(Commessa c);
+	
+	public void fatturatoCommessa(Double fatturato, Integer id);
 }

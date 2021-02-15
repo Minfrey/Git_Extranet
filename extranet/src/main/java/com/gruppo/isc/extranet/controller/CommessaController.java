@@ -17,7 +17,7 @@ import com.gruppo.isc.extranet.model.Commessa;
 import com.gruppo.isc.extranet.service.CommessaServiceImp;
 
 @RestController
-@CrossOrigin(origins =  "http://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 public class CommessaController 
 {
 	@Autowired
@@ -39,7 +39,7 @@ public class CommessaController
 		return new ResponseEntity<Commessa>(commessa,HttpStatus.OK);
 	}
 	
-	@PostMapping("commessa")
+	@PostMapping("setcommessa")
 	public int setCommessa(@RequestBody Commessa c)
 	{ 
 	   return  cs.setCommessa(c);

@@ -17,6 +17,7 @@ import com.gruppo.isc.extranet.repository.CommessaRepoImp;
 public class CommessaServiceImp implements CommessaService 
 {
 	private String messaggio = "";
+	
 	@Autowired
 	CommessaRepoImp cr;
 	

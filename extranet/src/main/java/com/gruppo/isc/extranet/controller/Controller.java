@@ -173,6 +173,17 @@ public class Controller
 		return new ResponseEntity<List<UsoRisorse>>(lista,HttpStatus.OK);
 	}
 	
+	@PutMapping("consolidaav")
+	public String consolidaav(@RequestBody Avanzamento a)
+	{
+		return avs.consolidaav(a);
+	}
+	
+	@PutMapping("consolidauso")
+	public String consolidaUso(@RequestBody UsoRisorse a)
+	{
+		return urs.consolidaUso(a);
+	}
 	
 	
 }
