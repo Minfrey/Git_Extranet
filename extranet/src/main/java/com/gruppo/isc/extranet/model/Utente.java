@@ -1,8 +1,8 @@
 package com.gruppo.isc.extranet.model;
 
-import java.beans.JavaBean;
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -37,15 +35,15 @@ public class Utente implements Serializable {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name = "stato", nullable = false , columnDefinition = "int default '1'")
+	@Column(name = "stato", nullable = false )
 	private int stato;
 	
 	
-	@Column(name = "primo_accesso" , nullable = false ,columnDefinition = "int default '1'")
+	@Column(name = "primo_accesso" , nullable = false )
 	private int primo_accesso;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_id_gruppo", nullable = false, referencedColumnName = "id_gruppo")
 	private Gruppo gruppo;
 }
