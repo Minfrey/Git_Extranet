@@ -56,7 +56,7 @@ public class CommessaRepoImp implements CommessaRepo
 	public void fatturatoCommessa(Double fatturato, Integer id)
 	{
 		Commessa c  = em.find(Commessa.class, id);
-		c.setFatturato(fatturato);
+		c.setFatturato((c.getFatturato()+fatturato));
 		em.merge(c);
 	}
 }
