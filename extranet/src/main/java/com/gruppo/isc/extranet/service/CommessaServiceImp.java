@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gruppo.isc.extranet.model.Anno;
 import com.gruppo.isc.extranet.model.Commessa;
 import com.gruppo.isc.extranet.repository.CommessaRepoImp;
 
@@ -56,5 +57,12 @@ public class CommessaServiceImp implements CommessaService
 			messaggio = "\"Non e stato possibile aggiornare la commessa\"";
 		}
 		return messaggio;		
+	}
+
+
+
+	@Override
+	public List<Anno> getAnniCommesse(Commessa c) {
+		return cr.getAnniCommesse(c);
 	}
 }
