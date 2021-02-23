@@ -1,10 +1,13 @@
 package com.gruppo.isc.extranet.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,7 +63,33 @@ public class Controller
 	@Autowired
 	AvanzamentoServiceImp avs;
 	
+	@Scheduled(fixedRate = 60000)
+	public void fixedRateSch() 
+	{ 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String strDate = sdf.format(date);
+		System.out.println("la data è "+strDate);
+		rs.schedulRisorse(strDate);
+		//esegue query su risorse quando la data e uguale a quella caricata
+		//tutti quelli con lo stesso nome attivi vengono disattivati 
+		//e attiva quello con la data odierna che e disattivato
+	}
+	@PostMapping("modrisorse")
+	public String modRisorse(@RequestBody Risorse r)
+	{
+		r.setId_risorse(null);
+		return rs.modRisorse(r);
+	}
 	
+	@PostMapping("setrisorse")
+	public String setRisorse(@RequestBody Risorse r)
+	{
+		System.out.println("risorsa nome :"+r.getNome());
+		System.out.println("risorsa tariffa :"+r.getTariffa());
+		System.out.println("risorsa iniziovalididta :"+r.getIniziovalidita());
+		return rs.setRisorse(r);
+	}
 
 	
 	@GetMapping("risorse")

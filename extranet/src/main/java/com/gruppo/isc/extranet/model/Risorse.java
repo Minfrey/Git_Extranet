@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,6 +34,13 @@ public class Risorse implements Serializable
 	
 	@Column(nullable=false)
 	private Double tariffa;
+	
+	@Column(nullable=false)
+	private Boolean attivo;
+	
+	
+	@Column(nullable=false)
+	private Date iniziovalidita;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "risorse")

@@ -78,99 +78,38 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		//controlla se la data dell'avanzamento e nei termini della commessa
 		if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
 		{	
-			arr.setAvanzamento(a);
-			messaggio = ("\"Attivita minore Inserita\"");
-			if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+			if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2 || a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
 			{
-				// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
-				// aggiungere fattura
-				cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
-			}
-		}
-/*			List<Avanzamento> percent = arr.controlloPercentuale(a);
-		for(int i=0;i<percent.size();i++)	
-			{
-				System.out.println("Attivita "+percent.get(i).getAttivita().getDescrizione()+" "+i);
-				
-				if(a.getAnno().getNumero()==percent.get(i).getAnno.getNumero())
+				List controllo = arr.controlloInserimento(a);
+				if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
 				{
-					//Se l'anno e uguale a l'anno nel dato indice e mese e percentuali passate sono minori di quelle nel dato indice
-					if(a.getMese().getId_mese()<percent.get(i).getMese().getId_mese() &&  a.getPercentuale()<percent.get(i).getPercentuale()))
-					{
-						//in caso positivo l'avanzamento con percentuale maggiore tra quelli con percentuale e mese minori viene salvato in una variabile
-						if(maggiorminore<percent.get(i).getPercentuale())
-						{
-							maggiorminore=percent.get(i).getPercentuale();
-							maggioreav= percent.get(i);
-						}
-					}
-					//Se l'anno e uguale a l'anno nel dato indice e mese e percentuali passate sono maggiori di quelle nel dato indice
-	 				if(a.getMese().getId_mese()>percent.get(i).getMese().getId_mese() &&  a.getPercentuale()>percent.get(i).getPercentuale()))
-					{
-						//in caso positivo l'avanzamento con percentuale minori tra quelli con percentuale e mese maggiore viene salvato in una variabile
-						if(minormaggiore>percent.get(i).getPercentuale)
-						{
-							minormaggiore=percent.get(i).getPercentuale();
-							minoreav= percent.get(i);
-						}
-					}
-				}
-				//se anno, mese e percentuale passati sono minori di quelli nel dato indice 
-				if(a.getAnno().getNumero()<percent.get(i).getAnno().getNumero() && 
-				   a.getMese().getId_mese()<percent.get(i).getMese().getId_mese() &&
-			       a.getPercentuale()<percent.get(i).getPercentuale())
-				{
-					System.out.println("percentuale corrente Mdm :"+a.getPercentuale());
-					//l'avanzamento con percentuale maggiore degli avanzamenti con anno mese e percentuale minori e salvato in una variabile
-					if(maggiorminore<percent.get(i).getPercentuale())
-					{
-						maggiorminore=percent.get(i).getPercentuale();
-						maggiormin= percent.get(i);
-					}
-				}
-				//se anno, mese e percentuale passati sono maggiori di quelli nel dato indice 
-				if(a.getAnno().getNumero()>percent.get(i).getAnno().getNumero() && 
-				   a.getMese().getId_mese()>percent.get(i).getMese().getId_mese() &&
-				   a.getPercentuale()>percent.get(i).getPercentuale())
-				{
-					//l'avanzamento con percentuale minore degli avanzamenti con anno mese e percentuale maggiori e salvato in una variabile
-					System.out.println("percentuale corrente mdM:"+a.getPercentuale());
-					if(minormaggiore>percent.get(i).getPercentuale())
-					{
-						minormaggiore=percent.get(i).getPercentuale();
-						minoremag= percent.get(i);
-					}
-				}
-				
-			}
-			List<Avanzamento> controllo = arr.controlloInserimento(a);
 					
-					if(controllo.size()>0 && controllo.size()<=1)
+					messaggio = ("\"Sono già stati inseriti i ricavi di questa attività\"");
+				}
+				else if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
+				{
+					messaggio = ("\"È già stato inserito un preventivo per i ricavi di questa attività\"");
+				}
+				else
+				{
+					arr.setAvanzamento(a);
+					messaggio = ("\"Attivita Inserita\"");
+					if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
 					{
-						messaggio = "\"Esiste gia un avanzamento di questo tipo in questa data\"";
+						// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
+						// aggiungere fattura
+						cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
 					}
-					else
-					{
-						System.out.println(maggioreav);
-						if(maggioreav.getAnno()!=null)
-						{
-							if(
-							// se anno mese e percentuale dell'avanzamento passato sono comprese tra il maggiore degli avanzamenti con anno mese e percentuale minori e tra il minore degli avanzamenti con anno mese e percentuale maggiori
-									a.getAnno().getNumero()>=maggioremin.getAnno().getNumero() && a.getAnno().getNumero()<=minoremag.getAnno().getNumero() &&
-									a.getMese().getId_mese()>maggioremin.getMese().getId_mese() && a.getMese().getId_mese()<minoremag.getMese().getId_mese() &&
-									a.getPercentuale()>maggioremin.getPercentuale() && a.getPercentuale()<minoremag.getPercentuale())
-							  )
-							{
-								arr.setAvanzamento(a);
-								messaggio = ("\"Attivita Inserita\"");
-							}
-						}
-						
-
-				
-		}*/	
-		
-	
+				}
+				//se esite un avanzamento dello stesso tipo con lo stesso nome della stessa commessa allora errore
+			}
+			else
+			{
+			arr.setAvanzamento(a);
+			messaggio = ("\"Attivita Inserita\"");
+			}
+			
+		}
 		else
 		{
 			messaggio="\"Data non corretta\"";

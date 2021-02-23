@@ -76,11 +76,9 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 	@Override
 	public List<Avanzamento> controlloInserimento(Avanzamento a)
 	{
-		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.anno.id_anno = :anno AND a.mese.id_mese = :mese AND a.attivita.id_attivita = :attivita ");
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.attivita.id_attivita = :attivita ");
 		q.setParameter("commessa", a.getAttivita().getCommessa().getId_commessa());
 		q.setParameter("tipo", a.getTipoAvanzamento().getId_tipo_avanzamento());
-		q.setParameter("anno",a.getAnno().getId_anno());
-		q.setParameter("mese",a.getMese().getId_mese());
 		q.setParameter("attivita", a.getAttivita().getId_attivita());
 		return q.getResultList();
 	}
