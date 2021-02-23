@@ -12,5 +12,5 @@ public interface CommessaService
 	public List<Commessa> getListaCommessa();
 	public String modCommessa(Commessa c);
 
-	public List<Anno> getAnniCommesse(Commessa c);
+	public List<Anno> getAnniCommesse(int id);
 }

@@ -62,7 +62,7 @@ public class CommessaServiceImp implements CommessaService
 
 
 	@Override
-	public List<Anno> getAnniCommesse(Commessa c) {
-		return cr.getAnniCommesse(c);
+	public List<Anno> getAnniCommesse(int id) {
+		return cr.getAnniCommesse(id);
 	}
 }

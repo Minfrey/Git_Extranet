@@ -17,5 +17,5 @@ public interface CommessaRepo
 	
 	public void fatturatoCommessa(Double fatturato, Integer id);
 	
-	public List<Anno> getAnniCommesse(Commessa c);
+	public List<Anno> getAnniCommesse(int id);
 }

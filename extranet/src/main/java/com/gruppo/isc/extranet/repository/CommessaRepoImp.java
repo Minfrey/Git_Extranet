@@ -63,10 +63,10 @@ public class CommessaRepoImp implements CommessaRepo
 	}
 
 	@Override
-	public List<Anno> getAnniCommesse(Commessa c) {
+	public List<Anno> getAnniCommesse(int id) {
 		List<Anno> anni = new ArrayList<Anno>();
 		Query q = em.createQuery("select  DISTINCT a.anno from Avanzamento a where a.attivita.commessa.id_commessa =: id and a.anno.numero IN(SELECT a.anno.numero from Avanzamento a GROUP BY a.anno.numero HAVING COUNT(*)>1) ORDER BY a.anno.numero");
-		q.setParameter("id", c.getId_commessa());
+		q.setParameter("id", id);
 		anni = q.getResultList();
 		
 		

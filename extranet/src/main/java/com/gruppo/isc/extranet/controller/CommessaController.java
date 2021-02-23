@@ -46,10 +46,10 @@ public class CommessaController
 	   return  cs.setCommessa(c);
 	}
 	
-	@GetMapping("/anniCommesse")
-	public ResponseEntity<List<Anno>> getAnniCommesse(@RequestBody Commessa c)
+	@GetMapping("/anniCommesse/{id}")
+	public ResponseEntity<List<Anno>> getAnniCommesse(@PathVariable int id)
 	{
-		List<Anno> anni = cs.getAnniCommesse(c);
+		List<Anno> anni = cs.getAnniCommesse(id);
 		return new ResponseEntity<List<Anno>>(anni, HttpStatus.OK);
 	}
 
