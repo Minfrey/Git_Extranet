@@ -27,12 +27,15 @@ public class RisorseServiceImp implements RisorseService
 	}
 	
 	@Override
+	public List<Risorse> getRisorseListActive()
+	{
+		return rr.getRisorseListActive();
+	}
+	
+	@Override
 	@Transactional
 	public String setRisorse(Risorse r) 
 	{
-		System.out.println("risorsa nome :"+r.getNome());
-		System.out.println("risorsa tariffa :"+r.getTariffa());
-		System.out.println("risorsa iniziovalididta :"+r.getIniziovalidita());
 		Risorse locale = rr.setRisorse(r);
 		String messaggio= "\"risorsa inserita con successo\"";
 		return messaggio;

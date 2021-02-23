@@ -7,6 +7,7 @@ import com.gruppo.isc.extranet.model.Risorse;
 public interface RisorseService 
 {
 	public List<Risorse> getRisorseList();
+	public List<Risorse> getRisorseListActive();
 	public String setRisorse(Risorse r);
 	public String modRisorse(Risorse r);
 	public void schedulRisorse(String a);

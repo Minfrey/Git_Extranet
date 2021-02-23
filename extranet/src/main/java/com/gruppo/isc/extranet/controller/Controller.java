@@ -99,6 +99,13 @@ public class Controller
 		return new ResponseEntity<List<Risorse>>(lista,HttpStatus.OK);
 	}
 	
+	@GetMapping("risorseActive")
+    public ResponseEntity<List<Risorse>> getRisorseListActive()
+	{
+		List<Risorse> lista = rs.getRisorseListActive();
+		return new ResponseEntity<List<Risorse>>(lista,HttpStatus.OK);
+	}
+	
 	@GetMapping("mese")
 	public ResponseEntity<List<Mese>> getlistaMesi()
 	{
