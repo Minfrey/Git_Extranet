@@ -24,6 +24,13 @@ public class RisorseRepoImp implements RisorseRepo
 	}
 	
 	@Override
+	public List<Risorse> getRisorseListActive()
+	{
+		Query q = em.createQuery("SELECT r FROM Risorse r where attivo=true");
+		return q.getResultList();
+	}
+	
+	@Override
 	public Risorse setRisorse(Risorse r)
 	{
 		em.persist(r); 
@@ -55,7 +62,7 @@ public class RisorseRepoImp implements RisorseRepo
 			q2.executeUpdate();
 			
 			System.out.println(nome);
-			// per ogni nome fai una select dove tutti quelli con data diversa da oggi vengono disattivati e tutti quelli con data uguale a oggi vengono attivati
+			// per ogni nome duplicato la cui data e uguale a oggi</div> tutti i record di risorse con data diversa da oggi vengono disattivati e tutti quelli con data uguale a oggi vengono attivati
 		}
 	}
 }
