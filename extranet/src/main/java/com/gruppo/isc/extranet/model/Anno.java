@@ -1,7 +1,5 @@
 package com.gruppo.isc.extranet.model;
 
-import java.io.Serializable;
-import java.sql.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,47 +8,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="risorse")
-public class Risorse implements Serializable
+@Table(name="anno")
+public class Anno 
 {
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_risorse;
+	private Integer id_anno;
 	
 	@Column(nullable=false)
-	private String nome;
-	
-	@Column(nullable=false)
-	private Double tariffa;
-	
-	@Column(nullable=false)
-	private Boolean attivo;
-	
-	
-	@Column(nullable=false)
-	private Date iniziovalidita;
+	private Integer numero;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "risorse")
+	@OneToMany(mappedBy="anno")
 	private Set<UsoRisorse> usorisorse;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="anno")
+	private Set<Avanzamento> avanzamento;
 	
 	 @Override
 	    public int hashCode() {
-	        return Objects.hashCode(id_risorse);
+	        return Objects.hashCode(id_anno);
 	    }
-	
 	 @Override
 	    public boolean equals(Object obj) {
 	        if (this == obj)
@@ -59,14 +50,11 @@ public class Risorse implements Serializable
 	            return false;
 	        if (getClass() != obj.getClass())
 	            return false;
-	        Risorse other = (Risorse) obj;
-	        return Objects.equals(id_risorse, other.getId_risorse());
+	        Anno other = (Anno) obj;
+	        return Objects.equals(id_anno, other.getId_anno());
 	    }
-	 
 	 @Override
 	 public String toString() {
-	     return "Order [Risorse id=" + id_risorse + "]";
+	     return "Order [Anno id=" + id_anno + "]";
 	 }
-	
-
 }

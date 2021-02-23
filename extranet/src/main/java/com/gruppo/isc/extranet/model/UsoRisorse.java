@@ -1,6 +1,8 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.Objects;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -27,20 +30,25 @@ public class UsoRisorse implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_usorisorse")
-	Integer id;
+	Integer id_usorisorse;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_risorse", referencedColumnName = "id_risorse",nullable=false)
 	private Risorse risorse;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_id_mese", referencedColumnName ="id_mese",nullable=false)
+	@JoinColumn(name="fk_id_mese", nullable=false)
 	private Mese mese;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_id_attivita", referencedColumnName ="id_attivita",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
-	private Attivita attivita;
+	@JoinColumn(name="fk_id_anno", nullable=false)
+	private Anno anno;
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name="fk_id_commessa", referencedColumnName ="id_commessa",nullable=false)//nome su questa tabella ----- | referencedColumnName ="id_attivita" nome su tabella "attivita"
+	private Commessa commessa;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_id_tipo_usorisorse", referencedColumnName ="id_tipo_usorisorse",nullable=false)
@@ -55,6 +63,30 @@ public class UsoRisorse implements Serializable
 	@Column(nullable=false)
 	private Double costi;
 	
+	@Column(name="consolida",nullable=true)
+	private Date consolida;
+	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_usorisorse);
+	    }
+	 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        UsoRisorse other = (UsoRisorse) obj;
+	        return Objects.equals(id_usorisorse, other.getId_usorisorse());
+	    }
+	 
+	 @Override
+	 public String toString() {
+	     return "Order [Usorisorse id=" + id_usorisorse + "]";
+	 }
 	
 
 }

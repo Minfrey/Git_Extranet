@@ -1,6 +1,7 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,24 +14,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "attivita")
-@Data
 public class Attivita implements Serializable
 {
 	private static final long serialVersionUID = 1L; 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id_attivita;
+	private Integer id_attivita;	
 	
 	
-	
-	@ManyToOne
-	@JoinColumn(name="fk_id_task",referencedColumnName = "id_task", nullable = false)
-	private Task task;
 
 	@ManyToOne
 	@JoinColumn(name="fk_id_commessa",referencedColumnName = "id_commessa",nullable = false)
@@ -39,12 +38,36 @@ public class Attivita implements Serializable
 	@Column(name="valore",nullable=false)
 	private Double valore;
 	
+	@Column(name="descrizione",nullable=false)
+	private String descrizione;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
 	
-	@OneToMany(mappedBy="attivita")
-	private Set<UsoRisorse> usoRisorse;
-	
+	 @Override
+	    public int hashCode() {
+	        return Objects.hashCode(id_attivita);
+	    }
+	 
+	 @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Attivita other = (Attivita) obj;
+	        return Objects.equals(id_attivita, other.getId_attivita());
+	    }
+//	@JsonIgnore
+//	@OneToMany(mappedBy="attivita")
+//	private Set<UsoRisorse> usoRisorse;
+	 @Override
+	 public String toString() {
+	     return "Order [Attivita id=" + id_attivita + "]";
+	 }
 	
 
 }
