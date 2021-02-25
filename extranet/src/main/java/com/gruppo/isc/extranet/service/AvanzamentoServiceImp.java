@@ -144,44 +144,45 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 			Integer contperc = 0;
 			Integer contpercnext = 0;
 			
-			List<Avanzamento> percent = arr.controlloPercentuale(a);
-			for(int i=0;i<percent.size();i++)
-			{
-				if(percent.get(i).getPercentuale()>contperc)
-				{
-					contperc=percent.get(i).getPercentuale();
-					//quando l'id e lo stesso di quello da modificare allora 
-					if(percent.get(i).getId_avanzamento()==a.getId_avanzamento())
-					{
-						if(i+1<percent.size())
-						{
-							contpercnext=percent.get(i+1).getPercentuale();
-							break;
-						}
-						else
-						{
-							contpercnext=(a.getPercentuale()+1);
-						}
-					}
-			}
-				
-				
-			}
-			
-			if(a.getPercentuale()>contperc && a.getPercentuale()<contpercnext)
-			{
+//			List<Avanzamento> percent = arr.controlloPercentuale(a);
+//			for(int i=0;i<percent.size();i++)
+//			{
+//				if(percent.get(i).getPercentuale()>contperc)
+//				{
+//					contperc=percent.get(i).getPercentuale();
+//					//quando l'id e lo stesso di quello da modificare allora 
+//					if(percent.get(i).getId_avanzamento()==a.getId_avanzamento())
+//					{
+//						if(i+1<percent.size())
+//						{
+//							System.out.println("i+1 "+ (i+1));
+//							contpercnext=percent.get(i+1).getPercentuale();
+//							break;
+//						}
+//						else
+//						{
+//							contpercnext=(a.getPercentuale()+1);
+//						}
+//					}
+//			}
+//				
+//				
+//			}
+//			
+//			if(a.getPercentuale()>contperc && a.getPercentuale()<contpercnext)
+//			{
 		
 				arr.modAvanzamento(a);
-				messaggio = ("\"Attivita modificata\"");
-			}
-			if(a.getPercentuale()<=contperc)
-			{
-				messaggio = ("\"Percentuale minore di una inserita precedentemente in questo avanzamento\"");
-			}
-			if(a.getPercentuale()>=contpercnext)
-			{
-				messaggio = ("\"Percentuale maggiore gia presente in questo avanzamento\"");
-			}
+//				messaggio = ("\"Attivita modificata\"");
+//			}
+//			if(a.getPercentuale()<=contperc)
+//			{
+//				messaggio = ("\"Percentuale minore di una inserita precedentemente in questo avanzamento\"");
+//			}
+//			if(a.getPercentuale()>=contpercnext)
+//			{
+//				messaggio = ("\"Percentuale maggiore gia presente in questo avanzamento\"");
+//			}
 		}
 		else
 		{
