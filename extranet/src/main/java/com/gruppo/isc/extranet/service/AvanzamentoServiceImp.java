@@ -78,35 +78,41 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		//controlla se la data dell'avanzamento e nei termini della commessa
 		if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
 		{	
-			if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2 || a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
+			if(arr.controlloDuplicatiInserimento(a).size()==0)
 			{
-				List controllo = arr.controlloInserimento(a);
-				if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+				if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2 || a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
 				{
-					
-					messaggio = ("\"Sono già stati inseriti i ricavi di questa attività\"");
-				}
-				else if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
-				{
-					messaggio = ("\"È già stato inserito un preventivo per i ricavi di questa attività\"");
+					List controllo = arr.controlloInserimento(a);
+					if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+					{
+						messaggio = ("\"Sono già stati inseriti i ricavi di questa attività\"");
+					}
+					else if(controllo.size()>=1 && a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
+					{
+						messaggio = ("\"È già stato inserito un preventivo per i ricavi di questa attività\"");
+					}
+					else
+					{
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+						if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+						{
+							// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
+							// aggiungere fattura
+							cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
+						}
+					}
+					//se esite un avanzamento dello stesso tipo con lo stesso nome della stessa commessa allora errore
 				}
 				else
 				{
-					arr.setAvanzamento(a);
-					messaggio = ("\"Attivita Inserita\"");
-					if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
-					{
-						// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
-						// aggiungere fattura
-						cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
-					}
+				arr.setAvanzamento(a);
+				messaggio = ("\"Attivita Inserita\"");
 				}
-				//se esite un avanzamento dello stesso tipo con lo stesso nome della stessa commessa allora errore
 			}
 			else
 			{
-			arr.setAvanzamento(a);
-			messaggio = ("\"Attivita Inserita\"");
+				messaggio=	("\"Attivita Duplicata\"");
 			}
 			
 		}
