@@ -106,8 +106,25 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 				}
 				else
 				{
-				arr.setAvanzamento(a);
-				messaggio = ("\"Attivita Inserita\"");
+					List<Avanzamento> percent = arr.controlloPercentuale(a);
+					Integer percentualemassima = 0;
+					for(int i=0;i<percent.size();i++)
+					{
+						if(percentualemassima<percent.get(i).getPercentuale())
+						{
+							percentualemassima=percent.get(i).getPercentuale();
+						}
+					}
+					if(percentualemassima<a.getPercentuale())
+					{
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+					}
+					else
+					{
+						messaggio = ("\"Esiste già un avanzamento con percentuale maggiore per questa attivita\"");
+					}
+				
 				}
 			}
 			else
