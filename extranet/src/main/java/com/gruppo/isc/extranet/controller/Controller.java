@@ -123,14 +123,10 @@ public class Controller
 	}
 	
 	
-	
 	@PostMapping("assegnaattivita")
-	public void setAttivita(@RequestBody Attivita a)
+	public String setAttivita(@RequestBody Attivita a)
 	{
-//		System.out.println(a.getTask());
-		System.out.println(a.getCommessa());
-		System.out.println(a.getValore());
-		as.setAttivita(a);
+		return as.setAttivita(a);
 	}
 	
 	@GetMapping("listaattivita/{id}")

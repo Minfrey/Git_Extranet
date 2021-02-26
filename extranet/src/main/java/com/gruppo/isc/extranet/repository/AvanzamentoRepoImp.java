@@ -83,6 +83,17 @@ public class AvanzamentoRepoImp implements AvanzamentoRepo
 		return q.getResultList();
 	}
 	
+	public List<Avanzamento> controlloDuplicatiInserimento(Avanzamento a)
+	{
+		Query q = em.createQuery("SELECT a FROM Avanzamento a WHERE a.attivita.commessa.id_commessa = :commessa AND a.tipoAvanzamento.id_tipo_avanzamento= :tipo AND a.attivita.id_attivita = :attivita AND a.mese.id_mese = :mese AND a.anno.numero = :anno");
+		q.setParameter("commessa", a.getAttivita().getCommessa().getId_commessa());
+		q.setParameter("tipo", a.getTipoAvanzamento().getId_tipo_avanzamento());
+		q.setParameter("attivita", a.getAttivita().getId_attivita());
+		q.setParameter("mese", a.getMese().getId_mese());
+		q.setParameter("anno", a.getAnno().getNumero());
+		return q.getResultList();
+	}
+	
 	@Override
 	public Avanzamento consolidav(Avanzamento a)
 	{
