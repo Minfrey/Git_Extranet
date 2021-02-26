@@ -37,7 +37,7 @@ public class RisorseServiceImp implements RisorseService
 	@Transactional
 	public String setRisorse(Risorse r) 
 	{
-		boolean attivo = false;
+		boolean attivo = true;
 		r.setAttivo(attivo);
 		Risorse locale = rr.setRisorse(r);
 		String messaggio= "\"risorsa inserita con successo\"";
