@@ -212,7 +212,7 @@ public class UtenteRepoImp implements UtenteRepo {
 		
 		if(ute == null) {
 			
-			Query q = em.createNativeQuery("insert into Utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
+			Query q = em.createNativeQuery("insert into utente (username, password,primo_accesso,stato, fk_id_gruppo) values (?,md5(?),?,?,?) ");
 			q.setParameter(1, u.getUsername());
 			q.setParameter(2, password);
 			q.setParameter(3, primoAccesso);
