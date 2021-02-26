@@ -37,10 +37,28 @@ public class RisorseServiceImp implements RisorseService
 	@Transactional
 	public String setRisorse(Risorse r) 
 	{
+		String messaggio="";
+		List<Risorse> controllo  = rr.getRisorseList();
+		boolean controllonome  = true;
+		for(int i=0;i<controllo.size();i++)
+		{
+			if(r.getNome().equals(controllo.get(i).getNome()))
+			{
+				controllonome=false;
+						break;
+			}
+		}
 		boolean attivo = true;
 		r.setAttivo(attivo);
-		Risorse locale = rr.setRisorse(r);
-		String messaggio= "\"risorsa inserita con successo\"";
+		if(controllonome==true)
+		{
+			Risorse locale = rr.setRisorse(r);
+			messaggio = "\"risorsa inserita con successo\"";
+		}
+		else
+		{
+			messaggio = "\"questo tipo di risorsa è già stata inserita esegua la modifica\"";
+		}
 		return messaggio;
 	}
 	
