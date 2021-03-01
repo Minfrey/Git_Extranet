@@ -307,6 +307,11 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	{
 		String messaggio = "";
 		Avanzamento b = arr.consolidav(a);
+		Integer numcom = a.getAttivita().getCommessa().getId_commessa();
+		if(a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
+		{
+			cri.previsionefatturatoCommessa(a.getAttivita().getValore(), numcom);
+		}
 		if(b.getConsolida()!=null)
 		{
 			messaggio="\"Consolidato\"";

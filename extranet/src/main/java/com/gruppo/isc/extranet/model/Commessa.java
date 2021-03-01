@@ -43,6 +43,15 @@ public class Commessa implements Serializable
 	@Column(columnDefinition = "DOUBLE default 0",nullable=false)
 	private Double fatturato;
 	
+	@Column(columnDefinition = "DOUBLE default 0",nullable=false)
+	private Double fatturato_previsto;
+	
+	@Column(columnDefinition = "DOUBLE default 0",nullable=false)
+	private Double costo;
+	
+	@Column(columnDefinition = "DOUBLE default 0",nullable=false)
+	private Double costo_previsto;
+	
 	@Column(nullable=false)
 	private Date inizio;
 	
