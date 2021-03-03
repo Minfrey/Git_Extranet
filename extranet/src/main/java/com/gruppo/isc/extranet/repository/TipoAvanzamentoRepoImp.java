@@ -20,7 +20,9 @@ public class TipoAvanzamentoRepoImp implements TipoAvanzamentoRepo
 	@Override
 	public List getAllTipiAvanzamento() {
 		List<TipoAvanzamento> tipi = new ArrayList<TipoAvanzamento>();
-		Query q = em.createQuery("select t from TipoAvanzamento t");
+		Query q = em.createQuery("select t from TipoAvanzamento t where t.nome=:task or t.nome=:previsionetask");
+		q.setParameter("task", "Task");
+		q.setParameter("previsionetask", "Previsione task");
 		tipi = q.getResultList();
 		
 		return tipi;
