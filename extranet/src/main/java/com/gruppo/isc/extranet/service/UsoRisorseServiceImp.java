@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.gruppo.isc.extranet.model.Avanzamento;
 import com.gruppo.isc.extranet.model.UsoRisorse;
+import com.gruppo.isc.extranet.repository.CommessaRepoImp;
 import com.gruppo.isc.extranet.repository.UsoRisorseRepoImp;
 
 @Service
@@ -19,6 +20,9 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 {
 	@Autowired
 	UsoRisorseRepoImp urr;
+	
+	@Autowired 
+	CommessaRepoImp cri;
 	
 	@Override
 	public String setUsoRisorse(UsoRisorse u) 
@@ -144,6 +148,15 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 	{
 		String messaggio = "";
 		UsoRisorse b = urr.consolidaUso(u);
+		int numcom = u.getCommessa().getId_commessa();
+		if(u.getTipoUsoRisorse().getId_tipo_usorisorse()==1)
+		{
+			cri.previsioneCostoCommessa(u.getCosti(), numcom);
+		}
+		if(u.getTipoUsoRisorse().getId_tipo_usorisorse()==2)
+		{
+			cri.CostoCommessa(u.getCosti(), numcom);
+		}
 		if(b.getConsolida()!=null)
 		{
 			messaggio="\"Consolidato\"";
@@ -154,6 +167,7 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 		}
 		return messaggio;
 	}
+	
 	
 	
 }

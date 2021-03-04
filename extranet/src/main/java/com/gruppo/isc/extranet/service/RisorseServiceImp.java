@@ -1,5 +1,6 @@
 package com.gruppo.isc.extranet.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -36,8 +37,28 @@ public class RisorseServiceImp implements RisorseService
 	@Transactional
 	public String setRisorse(Risorse r) 
 	{
-		Risorse locale = rr.setRisorse(r);
-		String messaggio= "\"risorsa inserita con successo\"";
+		String messaggio="";
+		List<Risorse> controllo  = rr.getRisorseList();
+		boolean controllonome  = true;
+		for(int i=0;i<controllo.size();i++)
+		{
+			if(r.getNome().equals(controllo.get(i).getNome()))
+			{
+				controllonome=false;
+						break;
+			}
+		}
+		boolean attivo = true;
+		r.setAttivo(attivo);
+		if(controllonome==true)
+		{
+			Risorse locale = rr.setRisorse(r);
+			messaggio = "\"risorsa inserita con successo\"";
+		}
+		else
+		{
+			messaggio = "\"questo tipo di risorsa è già stata inserita esegua la modifica\"";
+		}
 		return messaggio;
 	}
 	
@@ -45,10 +66,23 @@ public class RisorseServiceImp implements RisorseService
 	@Transactional
 	public String modRisorse(Risorse r)
 	{
-		boolean attivo = false;
-		r.setAttivo(attivo);
-		Risorse locale = rr.modRisorse(r);
-		String messaggio= "\"risorsa inserita con successo\"";
+		String messaggio="";
+		Date a = new Date();
+		a.setHours(0);
+		java.util.Date datainizio  = new java.util.Date(r.getIniziovalidita().getTime());
+		System.out.println("data odierna " +a + "data passata"+ datainizio);
+		System.out.println(datainizio.before(a));
+		if(datainizio.before(a))
+		{
+			messaggio= "\"data inserita antecedente alla data odierna\"";
+		}
+		else
+		{
+			boolean attivo = false;
+			r.setAttivo(attivo);
+			Risorse locale = rr.modRisorse(r);
+			messaggio= "\"risorsa inserita con successo\"";
+		}
 		return messaggio;
 	}
 	

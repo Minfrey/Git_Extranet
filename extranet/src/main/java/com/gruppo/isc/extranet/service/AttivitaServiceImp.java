@@ -26,12 +26,35 @@ public class AttivitaServiceImp implements AttivitaService
 	
 	@Override
 	@Transactional
-	public void setAttivita(Attivita a)
+	public String setAttivita(Attivita a)
 	{
 		Commessa commessa =	cr.getCommessaId(a.getCommessa().getId_commessa());
 		commessa.setValore(commessa.getValore()+a.getValore());
 		cr.modCommessa(commessa);
-	    ar.setAttivita(a);
+		String messaggio = "";
+		boolean bool=false;
+		System.out.println(a.getDescrizione());
+		List<Attivita> array =ar.getAttivitaCommessa(commessa.getId_commessa());
+		for(int i=0;i<array.size();i++)
+		{
+			if(a.getDescrizione().equals(array.get(i).getDescrizione()))
+			{
+				System.out.println(array.get(i).getDescrizione());
+				bool = true;
+				break;
+			}
+		}
+		if(bool==true)
+		{
+			messaggio="\"Già esiste un'attività con questa descrizione in questa commessa\"";
+		}
+		else
+		{
+			 ar.setAttivita(a);
+			 messaggio="\"Attività inserita con succeso\"";
+		}
+		return messaggio;
+	   
 	}
 	
 	@Override

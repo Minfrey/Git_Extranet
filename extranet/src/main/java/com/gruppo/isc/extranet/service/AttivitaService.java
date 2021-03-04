@@ -6,7 +6,7 @@ import com.gruppo.isc.extranet.model.Attivita;
 
 public interface AttivitaService 
 {
-	public void setAttivita(Attivita a);
+	public String setAttivita(Attivita a);
 	
 	public List<Attivita> getAttivitaCommessa(int id);
 	

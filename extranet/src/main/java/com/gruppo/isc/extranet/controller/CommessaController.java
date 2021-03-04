@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Anno;
 import com.gruppo.isc.extranet.model.Commessa;
 import com.gruppo.isc.extranet.service.CommessaServiceImp;
 
@@ -43,6 +44,13 @@ public class CommessaController
 	public int setCommessa(@RequestBody Commessa c)
 	{ 
 	   return  cs.setCommessa(c);
+	}
+	
+	@GetMapping("/anniCommesse/{id}")
+	public ResponseEntity<List<Anno>> getAnniCommesse(@PathVariable int id)
+	{
+		List<Anno> anni = cs.getAnniCommesse(id);
+		return new ResponseEntity<List<Anno>>(anni, HttpStatus.OK);
 	}
 
 }
