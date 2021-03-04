@@ -16,6 +16,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -49,6 +50,7 @@ public class Avanzamento implements Serializable
 	@Column(name="data",nullable=true)
 	private Date data;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="fk_id_attivita", referencedColumnName = "id_attivita" , nullable=false)
 	private Attivita attivita;
