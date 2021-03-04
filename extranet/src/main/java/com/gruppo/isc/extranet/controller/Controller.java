@@ -228,5 +228,12 @@ public class Controller
 		return new ResponseEntity<List<TipoAvanzamento>>(tipi, HttpStatus.OK) ;
 	}
 	
+	@GetMapping("tipiattivita/{id}/{idt}")
+	public ResponseEntity<List<Attivita>> getAttivitaCommessaByType(@PathVariable("id") int id,@PathVariable("idt") int idt)
+	{
+		List<Attivita> att = as.getAttivitaCommessaByType(id, idt);
+		return new ResponseEntity<List<Attivita>>(att,HttpStatus.OK);
+	}
+	
 	
 }
