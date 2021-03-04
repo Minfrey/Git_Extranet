@@ -21,16 +21,17 @@ import com.gruppo.isc.extranet.model.Attivita;
 import com.gruppo.isc.extranet.model.Avanzamento;
 import com.gruppo.isc.extranet.model.Mese;
 import com.gruppo.isc.extranet.model.Risorse;
-
+import com.gruppo.isc.extranet.model.TipoAvanzamento;
 import com.gruppo.isc.extranet.model.TipoUsoRisorse;
 import com.gruppo.isc.extranet.model.UsoRisorse;
+import com.gruppo.isc.extranet.repository.TipoAvanzamentoRepo;
 import com.gruppo.isc.extranet.service.AnnoServiceImp;
 import com.gruppo.isc.extranet.service.AttivitaServiceImp;
 import com.gruppo.isc.extranet.service.AvanzamentoServiceImp;
 
 import com.gruppo.isc.extranet.service.MeseServiceImp;
 import com.gruppo.isc.extranet.service.RisorseServiceImp;
-
+import com.gruppo.isc.extranet.service.TipoAvanzamentoServiceImp;
 import com.gruppo.isc.extranet.service.TipoUsoRisorseServiceImp;
 import com.gruppo.isc.extranet.service.UsoRisorseServiceImp;
 
@@ -62,6 +63,9 @@ public class Controller
 	
 	@Autowired
 	AvanzamentoServiceImp avs;
+	
+	@Autowired
+	TipoAvanzamentoServiceImp tas;
 	
 	@Scheduled(fixedRate = 60000)
 	public void fixedRateSch() 
@@ -215,6 +219,13 @@ public class Controller
 	public String consolidaUso(@RequestBody UsoRisorse a)
 	{
 		return urs.consolidaUso(a);
+	}
+	
+	@GetMapping("tipiavanzamento")
+	public ResponseEntity<List<TipoAvanzamento>> getAllTipoAvanzamento()
+	{
+		List<TipoAvanzamento> tipi = tas.getAllTipiAvanzamento();
+		return new ResponseEntity<List<TipoAvanzamento>>(tipi, HttpStatus.OK) ;
 	}
 	
 	
