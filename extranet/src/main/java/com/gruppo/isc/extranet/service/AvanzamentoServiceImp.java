@@ -37,6 +37,13 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	@Transactional
 	public String setAvanzamento(Avanzamento a)
 	{
+			Calendar alfa = new GregorianCalendar();
+			alfa.set(a.getAnno().getNumero(), (a.getMese().getId_mese()-1), 15);	
+			java.sql.Date javaSqlDate = new java.sql.Date(alfa.getTime().getTime());
+			a.setData(javaSqlDate);
+			
+			System.out.println(a.getData());
+				
 		Integer percentualelocale = a.getPercentuale();
 		Double valore = a.getAttivita().getValore();
 		Double valoreava = (valore*percentualelocale)/100;
@@ -44,40 +51,13 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		
 		String messaggio="";
 		
-		Date inizio = a.getAttivita().getCommessa().getInizio();
+		java.sql.Date inizio = a.getAttivita().getCommessa().getInizio();
 		System.out.println(inizio);
-		Date fine = a.getAttivita().getCommessa().getFine();
+		java.sql.Date fine = a.getAttivita().getCommessa().getFine();
 		System.out.println(fine);
-		Calendar inizioc = new GregorianCalendar();
-		inizioc.setTime(inizio);
-		Calendar finec = new GregorianCalendar();
-		finec.setTime(fine);
 		
-		
-		Integer mesei= inizioc.get(Calendar.MONTH)+1;
-		System.out.println("Mese inizio "+mesei);
-		Integer mesef= finec.get(Calendar.MONTH)+1;
-		System.out.println("Mese fine "+mesef);
-		Integer annoi = inizioc.get(Calendar.YEAR);
-		System.out.println("Anno inizio "+annoi);
-		Integer annof = finec.get(Calendar.YEAR);
-		System.out.println("Anno fine "+annof);
-		
-		Integer mese = a.getMese().getId_mese(); 
-		System.out.println("mese commessa "+mese);
-		Integer anno = a.getAnno().getNumero();
-		System.out.println("anno commessa "+anno);
-		
-//		boolean bool;
-//		
-//		int maggiorminore = 0;
-//		int minormaggiore = 100;
-//		Avanzamento minoreav = new Avanzamento();
-//		Avanzamento maggioreav = new Avanzamento();
-		
-		//controlla se la data dell'avanzamento e nei termini della commessa
-		if(mesei<=mese &&  mesef>=mese && annoi<=anno && annof>=anno)
-		{	
+		if(inizio.before(a.getData()) && fine.after(a.getData()))
+		{
 			if(arr.controlloDuplicatiInserimento(a).size()==0)
 			{
 				if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2 || a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
@@ -93,21 +73,95 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 					}
 					else
 					{
-						arr.setAvanzamento(a);
-						messaggio = ("\"Attivita Inserita\"");
-						if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
-						{
-							// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
-							// aggiungere fattura
-							cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
-						}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+							arr.setAvanzamento(a);
+							messaggio = ("\"Attivita Inserita\"");
+							if(a.getTipoAvanzamento().getId_tipo_avanzamento()==2)
+							{
+								// prendo id della commessa e inserisco il valore dell'attivita nel fatturato essendo id 2 il computo dei ricavi
+								// aggiungere fattura
+								cri.fatturatoCommessa(a.getAttivita().getValore(), a.getAttivita().getCommessa().getId_commessa());
+							}
+					}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						
+					
 					}
 					//se esite un avanzamento dello stesso tipo con lo stesso nome della stessa commessa allora errore
-				}
+				
 				else
 				{
-				arr.setAvanzamento(a);
-				messaggio = ("\"Attivita Inserita\"");
+					/////////////////////////////////////////
+					boolean controlloprec = false;
+					List<Avanzamento> percent = arr.controlloPercentuale(a);
+					Avanzamento massimominimo = new Avanzamento();
+					Avanzamento minimomassimo = new Avanzamento();
+					for(int i=0;i<percent.size();i++)
+					{
+						if(a.getData().before(percent.get(i).getData())/* && a.getPercentuale()<percent.get(i).getPercentuale()*/)
+						{
+							if(minimomassimo.getData()==null)
+							{
+								minimomassimo = percent.get(i);
+							}
+							else if(minimomassimo.getData().after(percent.get(i).getData())/*&& minimomassimo.getPercentuale()>percent.get(i).getPercentuale()*/)
+							{
+								minimomassimo = percent.get(i);
+							}
+						}
+						else if(a.getData().after(percent.get(i).getData())/* && a.getPercentuale()>percent.get(i).getPercentuale()*/)
+						{
+							if(massimominimo.getData()==null)
+							{
+								massimominimo = percent.get(i);
+							}
+							else if(massimominimo.getData().before(percent.get(i).getData())/*&& massimominimo.getPercentuale()<percent.get(i).getPercentuale()*/)
+							{
+								massimominimo = percent.get(i);
+							}
+						}
+					}
+					System.out.println("estremo inferiore "+massimominimo.getData()+" "+massimominimo.getPercentuale());
+					System.out.println("inserito "+a.getData()+" "+a.getPercentuale());
+					System.out.println("estremo superiore "+minimomassimo.getData()+" "+minimomassimo.getPercentuale());
+					if(massimominimo.getData()==null && minimomassimo.getData()==null)
+					{
+						System.out.println("liberoooooooooooooooooooo");
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+					}
+					else if(massimominimo.getData()==null && a.getData().before(minimomassimo.getData()) && a.getPercentuale()<minimomassimo.getPercentuale() )
+					{
+						System.out.println("estremo inferiore nulloooooooooooo");
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+					}
+					else if(minimomassimo.getData()==null && a.getData().after(massimominimo.getData()) && a.getPercentuale()>massimominimo.getPercentuale())
+					{
+						System.out.println("estremo superiore nulloooooooooooo");
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+					}
+					///////////////////////////////
+					else if (massimominimo.getData()!=null   
+							&& massimominimo.getData().before(a.getData())  
+							&& minimomassimo.getData()!=null
+							&& a.getData().before(minimomassimo.getData()) 
+							 && massimominimo.getPercentuale()<a.getPercentuale() 
+							 && a.getPercentuale()<minimomassimo.getPercentuale())
+					{
+						System.out.println("nessuno e nulloooooooooo");
+						arr.setAvanzamento(a);
+						messaggio = ("\"Attivita Inserita\"");
+					}
+					else
+					{
+						System.out.println(massimominimo.getData().before(a.getData()));
+//						System.out.println(a.getData().before(minimomassimo.getData()));
+						System.out.println(massimominimo.getPercentuale()<a.getPercentuale());
+//						System.out.println(a.getPercentuale()<minimomassimo.getPercentuale());
+						messaggio = ("\"Errore\"");
+					}
 				}
 			}
 			else
@@ -133,7 +187,12 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 		String messaggio="";
 		Avanzamento consolid = arr.getAvanzamentoByID(a.getId_avanzamento());
 		if(consolid.getConsolida()==null)
-			{
+		{
+			Calendar alfa = new GregorianCalendar();
+			alfa.set(a.getAnno().getNumero(), (a.getMese().getId_mese()-1), 15);	
+			java.sql.Date javaSqlDate = new java.sql.Date(alfa.getTime().getTime());
+			a.setData(javaSqlDate);
+			
 			//calcola valore da percentuale
 			Integer percentualelocale = a.getPercentuale();
 			Double valore = a.getAttivita().getValore();
@@ -141,47 +200,81 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 			a.setValore(valoreava);
 			
 			
-			Integer contperc = 0;
-			Integer contpercnext = 0;
-			
+
+			/////////////////////////////////////////
+			boolean controlloprec = false;
 			List<Avanzamento> percent = arr.controlloPercentuale(a);
+			Avanzamento massimominimo = new Avanzamento();
+			Avanzamento minimomassimo = new Avanzamento();
 			for(int i=0;i<percent.size();i++)
 			{
-				if(percent.get(i).getPercentuale()>contperc)
+				if(a.getMese().getId_mese()==percent.get(i).getMese().getId_mese() && a.getAnno().getId_anno()==percent.get(i).getAnno().getId_anno())
 				{
-					contperc=percent.get(i).getPercentuale();
-					//quando l'id e lo stesso di quello da modificare allora 
-					if(percent.get(i).getId_avanzamento()==a.getId_avanzamento())
+					continue;
+				}
+				if(a.getData().before(percent.get(i).getData())/* && a.getPercentuale()<percent.get(i).getPercentuale()*/)
+				{
+					if(minimomassimo.getData()==null)
 					{
-						if(i+1<percent.size())
-						{
-							contpercnext=percent.get(i+1).getPercentuale();
-							break;
-						}
-						else
-						{
-							contpercnext=(a.getPercentuale()+1);
-						}
+						minimomassimo = percent.get(i);
 					}
+					else if(minimomassimo.getData().after(percent.get(i).getData())/*&& minimomassimo.getPercentuale()>percent.get(i).getPercentuale()*/)
+					{
+						minimomassimo = percent.get(i);
+					}
+				}
+				else if(a.getData().after(percent.get(i).getData())/* && a.getPercentuale()>percent.get(i).getPercentuale()*/)
+				{
+					if(massimominimo.getData()==null)
+					{
+						massimominimo = percent.get(i);
+					}
+					else if(massimominimo.getData().before(percent.get(i).getData())/*&& massimominimo.getPercentuale()<percent.get(i).getPercentuale()*/)
+					{
+						massimominimo = percent.get(i);
+					}
+				}
 			}
-				
-				
-			}
-			
-			if(a.getPercentuale()>contperc && a.getPercentuale()<contpercnext)
+			System.out.println("estremo inferiore "+massimominimo.getData()+" "+massimominimo.getPercentuale());
+			System.out.println("inserito "+a.getData()+" "+a.getPercentuale());
+			System.out.println("estremo superiore "+minimomassimo.getData()+" "+minimomassimo.getPercentuale());
+			if(massimominimo.getData()==null && minimomassimo.getData()==null)
 			{
-		
+				System.out.println("liberoooooooooooooooooooo");
 				arr.modAvanzamento(a);
-				messaggio = ("\"Attivita modificata\"");
+				messaggio = ("\"Attivita Inserita\"");
 			}
-			if(a.getPercentuale()<=contperc)
+			else if(massimominimo.getData()==null && a.getData().before(minimomassimo.getData()) && a.getPercentuale()<minimomassimo.getPercentuale() )
 			{
-				messaggio = ("\"Percentuale minore di una inserita precedentemente in questo avanzamento\"");
+				System.out.println("estremo inferiore nulloooooooooooo");
+				arr.modAvanzamento(a);
+				messaggio = ("\"Attivita Inserita\"");
 			}
-			if(a.getPercentuale()>=contpercnext)
+			else if(minimomassimo.getData()==null && a.getData().after(massimominimo.getData()) && a.getPercentuale()>massimominimo.getPercentuale())
 			{
-				messaggio = ("\"Percentuale maggiore gia presente in questo avanzamento\"");
+				System.out.println("estremo superiore nulloooooooooooo");
+				arr.modAvanzamento(a);
+				messaggio = ("\"Attivita Inserita\"");
 			}
+			///////////////////////////////
+			else if (massimominimo.getData().before(a.getData()) 
+					&& a.getData().before(minimomassimo.getData())
+					 && massimominimo.getPercentuale()<a.getPercentuale() 
+					 && a.getPercentuale()<minimomassimo.getPercentuale())
+			{
+				System.out.println("nessuno e nulloooooooooo");
+				arr.modAvanzamento(a);
+				messaggio = ("\"Attivita Inserita\"");
+			}
+			else
+			{
+				System.out.println(massimominimo.getData().before(a.getData()));
+				System.out.println(a.getData().before(minimomassimo.getData()));
+				System.out.println(massimominimo.getPercentuale()<a.getPercentuale());
+				System.out.println(a.getPercentuale()<minimomassimo.getPercentuale());
+				messaggio = ("\"Errore\"");
+			}
+		
 		}
 		else
 		{
@@ -214,6 +307,11 @@ public class AvanzamentoServiceImp implements AvanzamentoService
 	{
 		String messaggio = "";
 		Avanzamento b = arr.consolidav(a);
+		Integer numcom = a.getAttivita().getCommessa().getId_commessa();
+		if(a.getTipoAvanzamento().getId_tipo_avanzamento()==3)
+		{
+			cri.previsionefatturatoCommessa(a.getAttivita().getValore(), numcom);
+		}
 		if(b.getConsolida()!=null)
 		{
 			messaggio="\"Consolidato\"";

@@ -78,6 +78,9 @@ public class AttivitaServiceImp implements AttivitaService
 		return messaggio;
 	}
 	
-
+	public List<Attivita> getAttivitaCommessaByType(int id,int idt)
+	{
+		return ar.getAttivitaCommessaByType(id,idt);
+	}
 
 }

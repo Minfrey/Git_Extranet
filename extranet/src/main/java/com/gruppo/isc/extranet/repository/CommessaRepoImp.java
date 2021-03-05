@@ -61,6 +61,27 @@ public class CommessaRepoImp implements CommessaRepo
 		c.setFatturato((c.getFatturato()+fatturato));
 		em.merge(c);
 	}
+	
+	public void previsionefatturatoCommessa(Double fatturato, Integer id)
+	{
+		Commessa c  = em.find(Commessa.class, id);
+		c.setFatturato_previsto((c.getFatturato_previsto()+fatturato));
+		em.merge(c);
+	}
+	
+	public void previsioneCostoCommessa(Double costo, Integer id)
+	{
+		Commessa c  = em.find(Commessa.class, id);
+		c.setCosto_previsto(c.getCosto_previsto()+costo);
+		em.merge(c);
+	}
+	
+	public void CostoCommessa(Double costo, Integer id)
+	{
+		Commessa c  = em.find(Commessa.class, id);
+		c.setCosto(c.getCosto()+costo);
+		em.merge(c);
+	}
 
 	@Override
 	public List<Anno> getAnniCommesse(int id) {
