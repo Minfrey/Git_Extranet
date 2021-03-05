@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -41,7 +42,7 @@ public class Attivita implements Serializable
 	@Column(name="descrizione",nullable=false)
 	private String descrizione;
 	
-	@JsonIgnore
+	@JsonManagedReference
 	@OneToMany(mappedBy="attivita")
 	private Set<Avanzamento> avanzamento;
 	
