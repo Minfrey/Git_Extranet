@@ -17,7 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 
@@ -28,7 +31,10 @@ import lombok.Data;
 public class Avanzamento implements Serializable
 {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7966448133551879128L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +56,7 @@ public class Avanzamento implements Serializable
 	@Column(name="data",nullable=true)
 	private Date data;
 	
-	@JsonBackReference
+	@JsonIgnoreProperties("avanzamento")
 	@ManyToOne
 	@JoinColumn(name="fk_id_attivita", referencedColumnName = "id_attivita" , nullable=false)
 	private Attivita attivita;
