@@ -40,7 +40,7 @@ public class AttivitaRepoImp implements AttivitaRepo
 	
 	public  List<Attivita> getAttivitaCommessaByType(int id,int idt)
 	{
-		  	Query q =	em.createQuery("SELECT a FROM Attivita a JOIN a.avanzamento b WHERE a.commessa.id_commessa = :commessa and b.tipoAvanzamento.id_tipo_avanzamento = :idt ").setParameter("commessa", id).setParameter("idt", idt);
+		  	Query q =	em.createQuery("SELECT distinct a FROM Attivita a JOIN a.avanzamento b WHERE a.commessa.id_commessa = :commessa and b.tipoAvanzamento.id_tipo_avanzamento = :idt ").setParameter("commessa", id).setParameter("idt", idt);
 			return q.getResultList();
 	}
 	
