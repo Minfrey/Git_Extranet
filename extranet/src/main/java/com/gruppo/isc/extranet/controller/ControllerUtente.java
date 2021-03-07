@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gruppo.isc.extranet.model.Abilitazioni;
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 import com.gruppo.isc.extranet.service.UtenteService;
@@ -112,6 +113,13 @@ public class ControllerUtente {
 		Boolean creato = us.creaUtente(u);
 		return new ResponseEntity<Boolean>(creato, HttpStatus.OK);
 	}	
+	
+	@PostMapping("/abilitazioni")
+	public ResponseEntity<Abilitazioni> getAbilitazioniByTipoUtente(Utente u)
+	{
+		Abilitazioni permessi = us.getAbilitazioniByTipoUtente(u);
+		return new ResponseEntity<Abilitazioni>(permessi,HttpStatus.OK);
+	}
 	
 	
 }
