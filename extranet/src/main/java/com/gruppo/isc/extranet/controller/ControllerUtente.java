@@ -114,10 +114,10 @@ public class ControllerUtente {
 		return new ResponseEntity<Boolean>(creato, HttpStatus.OK);
 	}	
 	
-	@PostMapping("/abilitazioni")
-	public ResponseEntity<Abilitazioni> getAbilitazioniByTipoUtente(Utente u)
+	@GetMapping("/abilitazioni/{tipologia}")
+	public ResponseEntity<Abilitazioni> getAbilitazioniByTipoUtente(@PathVariable int tipologia)
 	{
-		Abilitazioni permessi = us.getAbilitazioniByTipoUtente(u);
+		Abilitazioni permessi = us.getAbilitazioniByTipoUtente(tipologia);
 		return new ResponseEntity<Abilitazioni>(permessi,HttpStatus.OK);
 	}
 	

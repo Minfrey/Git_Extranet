@@ -85,10 +85,11 @@ public class UtenteService implements UtenteUtilities {
 		
 	}
 
-	@Override
-	public Abilitazioni getAbilitazioniByTipoUtente(Utente u) {
-		return ur.getAbilitazioniByTipoUtente(u);
+	@Override	
+	public Abilitazioni getAbilitazioniByTipoUtente(int idGruppo) {
+		return ur.getAbilitazioniByTipoUtente(idGruppo);
 	}
+
 
 	
 }

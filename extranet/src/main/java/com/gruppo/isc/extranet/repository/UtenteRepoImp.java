@@ -227,13 +227,13 @@ public class UtenteRepoImp implements UtenteRepo {
 	}
 
 	@Override
-	public Abilitazioni getAbilitazioniByTipoUtente(Utente u) {
+	public Abilitazioni getAbilitazioniByTipoUtente(int tipologia) {
 		
-		Abilitazioni permessi = new Abilitazioni();
-		Query q = em.createQuery("SELECT a FROM Abilitazioni a where a.gruppo.descrizione =: tipologia");
-		q.setParameter("tipologia", u.getGruppo().getDescrizione());
-		permessi = (Abilitazioni) q.getSingleResult();
-		return permessi;
+		Abilitazioni abilitazioni = new Abilitazioni();
+		Query q = em.createQuery("SELECT a FROM Abilitazioni a where a.gruppo.id =: tipologia");
+		q.setParameter("tipologia", tipologia);
+		abilitazioni = (Abilitazioni) q.getSingleResult();
+		return abilitazioni;
 	}
 
 	

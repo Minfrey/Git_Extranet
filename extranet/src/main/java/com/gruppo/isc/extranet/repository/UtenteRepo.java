@@ -31,5 +31,5 @@ public interface UtenteRepo {
 	
 	public List<Utente> cercaUtenteDiGruppo(String utente, String gruppo);
 	
-	public Abilitazioni getAbilitazioniByTipoUtente(Utente u);
+	public Abilitazioni getAbilitazioniByTipoUtente(int tipologia);
 }
