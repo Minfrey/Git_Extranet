@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gruppo.isc.extranet.model.Abilitazioni;
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 import com.gruppo.isc.extranet.repository.UtenteRepo;
@@ -83,6 +84,12 @@ public class UtenteService implements UtenteUtilities {
 		return ur.creaUtente(u);
 		
 	}
+
+	@Override	
+	public Abilitazioni getAbilitazioniByTipoUtente(int idGruppo) {
+		return ur.getAbilitazioniByTipoUtente(idGruppo);
+	}
+
 
 	
 }

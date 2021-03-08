@@ -3,6 +3,7 @@ package com.gruppo.isc.extranet.service;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
+import com.gruppo.isc.extranet.model.Abilitazioni;
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 
@@ -27,5 +28,7 @@ public List<Utente> getAllUtenti(String descrizione);
 	public boolean confrontaPassword(Utente u);
 	
 	public List<Utente> cercaUtenteDiGruppo(String utente, String gruppo);
+
+	public Abilitazioni getAbilitazioniByTipoUtente(int tipologia);
 	
 }

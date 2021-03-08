@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.gruppo.isc.extranet.model.Abilitazioni;
 import com.gruppo.isc.extranet.model.Gruppo;
 import com.gruppo.isc.extranet.model.Utente;
 
@@ -223,6 +224,16 @@ public class UtenteRepoImp implements UtenteRepo {
 		}
 		
 		return creato;
+	}
+
+	@Override
+	public Abilitazioni getAbilitazioniByTipoUtente(int tipologia) {
+		
+		Abilitazioni abilitazioni = new Abilitazioni();
+		Query q = em.createQuery("SELECT a FROM Abilitazioni a where a.gruppo.id =: tipologia");
+		q.setParameter("tipologia", tipologia);
+		abilitazioni = (Abilitazioni) q.getSingleResult();
+		return abilitazioni;
 	}
 
 	
