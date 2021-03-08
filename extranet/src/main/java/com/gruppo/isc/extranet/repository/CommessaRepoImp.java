@@ -94,4 +94,12 @@ public class CommessaRepoImp implements CommessaRepo
 		
 		return anni;
 	}
+	
+	public String chiudiPreventivo(int id)
+	{
+		Commessa c  = em.find(Commessa.class, id);
+		c.setPrevchiuso(true);
+		em.merge(c);
+		return ("\"preventivo completato\"");
+	}
 }

@@ -58,6 +58,9 @@ public class Commessa implements Serializable
 	@Column(nullable=false)
 	private Date fine;
 	
+	@Column(nullable=false)
+	private boolean prevchiuso;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "commessa")
 	private Set<Attivita> attivita;

@@ -52,5 +52,11 @@ public class CommessaController
 		List<Anno> anni = cs.getAnniCommesse(id);
 		return new ResponseEntity<List<Anno>>(anni, HttpStatus.OK);
 	}
+	
+	@PutMapping("/chiudiprev/{id}")
+	public String chiudiPreventivo(@PathVariable int id)
+	{
+		return cs.chiudiPreventivo(id);
+	}
 
 }
