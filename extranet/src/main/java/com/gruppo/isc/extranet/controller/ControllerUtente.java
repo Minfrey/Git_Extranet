@@ -114,6 +114,8 @@ public class ControllerUtente {
 		return new ResponseEntity<Boolean>(creato, HttpStatus.OK);
 	}	
 	
+	
+	//*****METODO FINITO E FUNZIONANTE**********
 	@GetMapping("/abilitazioni/{tipologia}")
 	public ResponseEntity<Abilitazioni> getAbilitazioniByTipoUtente(@PathVariable int tipologia)
 	{
