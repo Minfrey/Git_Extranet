@@ -12,18 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-<<<<<<< HEAD
-=======
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
->>>>>>> branch 'main' of https://github.com/Minfrey/Git_Extranet.git
 
 import lombok.Data;
 
@@ -59,11 +50,7 @@ public class Avanzamento implements Serializable
 	@Column(name="data",nullable=true)
 	private Date data;
 	
-<<<<<<< HEAD
-//	@JsonBackReference
-//	@JsonIgnore
-=======
->>>>>>> branch 'main' of https://github.com/Minfrey/Git_Extranet.git
+
 	@JsonIgnoreProperties("avanzamento")
 	@ManyToOne
 	@JoinColumn(name="fk_id_attivita", referencedColumnName = "id_attivita" , nullable=false)

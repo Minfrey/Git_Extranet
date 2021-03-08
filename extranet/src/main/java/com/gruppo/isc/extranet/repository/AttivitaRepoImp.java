@@ -46,10 +46,7 @@ public class AttivitaRepoImp implements AttivitaRepo
 	
 	public  List<Attivita> getAttivitaCommessaByType(int id,int idt)
 	{
-<<<<<<< HEAD
-		  	Query q =	em.createQuery("SELECT distinct a FROM Attivita a JOIN a.avanzamento b WHERE a.commessa.id_commessa = :commessa and b.tipoAvanzamento.id_tipo_avanzamento = :idt ").setParameter("commessa", id).setParameter("idt", idt);
-			return q.getResultList();
-=======
+
 		Commessa a1= em.find(Commessa.class, id);
 		  System.out.println("id commessa = "+a1.getId_commessa());
 		  
@@ -67,7 +64,7 @@ public class AttivitaRepoImp implements AttivitaRepo
 		  		a.get(i).setAvanzamento(foo);
 		  	}
 		  	return a;
->>>>>>> branch 'main' of https://github.com/Minfrey/Git_Extranet.git
+
 	}
 	
 	@Override
