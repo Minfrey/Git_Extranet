@@ -1,6 +1,8 @@
 package com.gruppo.isc.extranet.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,19 +16,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
+
 
 @Data
 @Entity
 @Table(name = "attivita")
 public class Attivita implements Serializable
 {
-	private static final long serialVersionUID = 1L; 
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -872074613552119416L;
+
+
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_attivita;	
@@ -45,7 +59,7 @@ public class Attivita implements Serializable
 	
 	@JsonIgnoreProperties("attivita")
 	@OneToMany(mappedBy="attivita")
-	private Set<Avanzamento> avanzamento;
+	private Set<Avanzamento> avanzamento = new HashSet<>();
 	
 	 @Override
 	    public int hashCode() {
