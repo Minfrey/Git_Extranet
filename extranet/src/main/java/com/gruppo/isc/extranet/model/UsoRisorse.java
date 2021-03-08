@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -32,6 +33,7 @@ public class UsoRisorse implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id_usorisorse;
 	
+	@JsonIgnoreProperties("usorisorse")
 	@ManyToOne
 	@JoinColumn(name="fk_id_risorse", referencedColumnName = "id_risorse",nullable=false)
 	private Risorse risorse;

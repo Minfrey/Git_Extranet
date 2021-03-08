@@ -94,5 +94,9 @@ public class RisorseServiceImp implements RisorseService
 		rr.schedulRisorse(a);
 	}
 	
+	public List<Risorse> getRisorseCommessaByType(int id, int idt)
+	{
+		return rr.getRisorseCommessaByType(id, idt);
+	}
 	
 }

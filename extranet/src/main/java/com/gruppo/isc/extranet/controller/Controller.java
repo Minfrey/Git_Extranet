@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -235,5 +237,11 @@ public class Controller
 		return new ResponseEntity<List<Attivita>>(att,HttpStatus.OK);
 	}
 	
+	@GetMapping("tipirisorse/{id}/{idt}")
+	public ResponseEntity<List<Risorse>> getRisorseCommessaByType(@PathVariable("id") int id,@PathVariable("idt") int idt)
+	{
+		List<Risorse> ris =  rs.getRisorseCommessaByType(id, idt);
+		return new ResponseEntity<List<Risorse>>(ris,HttpStatus.OK);
+	}
 	
 }
