@@ -1,6 +1,8 @@
 package com.gruppo.isc.extranet.repository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,7 +10,13 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import com.gruppo.isc.extranet.model.Attivita;
+import com.gruppo.isc.extranet.model.Avanzamento;
+import com.gruppo.isc.extranet.model.Commessa;
 import com.gruppo.isc.extranet.model.Risorse;
+import com.gruppo.isc.extranet.model.TipoAvanzamento;
+import com.gruppo.isc.extranet.model.TipoUsoRisorse;
+import com.gruppo.isc.extranet.model.UsoRisorse;
 
 @Repository
 public class RisorseRepoImp implements RisorseRepo
@@ -64,5 +72,26 @@ public class RisorseRepoImp implements RisorseRepo
 			System.out.println(nome);
 			// per ogni nome duplicato la cui data e uguale a oggi</div> tutti i record di risorse con data diversa da oggi vengono disattivati e tutti quelli con data uguale a oggi vengono attivati
 		}
+	}
+	
+	public List<Risorse> getRisorseCommessaByType(int id, int idt)
+	{
+		Commessa a1= em.find(Commessa.class, id);
+		  System.out.println("id commessa = "+a1.getId_commessa());
+		  
+		  	// le query devono essere fatte sulle entita non sul database
+		  TipoUsoRisorse a2 = em.find(TipoUsoRisorse.class, idt);
+		  System.out.println("id avanzamento = "+a2.getId_tipo_usorisorse());
+		  
+		  	Query q =	em.createQuery("SELECT Distinct a FROM Risorse a Join a.usorisorse b where b.commessa = :commessa").setParameter("commessa", a1);
+			List<Risorse> a =q.getResultList();
+		  	for(int i=0;i<a.size();i++)
+		  	{
+		  		Query q2 = em.createQuery("Select a from UsoRisorse a where a.risorse = :risorse and a.tipoUsoRisorse = :tipo and a.commessa=:commessa").setParameter("risorse" , a.get(i)).setParameter("tipo", a2).setParameter("commessa", a1);;
+		  		List<UsoRisorse> avanzamentolocale=  q2.getResultList();
+		  		Set<UsoRisorse> foo = new HashSet<UsoRisorse>(avanzamentolocale);
+		  		a.get(i).setUsorisorse(foo);
+		  	}
+		  	return a;
 	}
 }

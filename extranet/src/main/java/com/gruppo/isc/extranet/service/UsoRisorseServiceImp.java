@@ -138,7 +138,6 @@ public class UsoRisorseServiceImp implements UsoRisorseService
 	public List<UsoRisorse> getUsoRisorseByType(int id, int idt)
 	{
 		 List<UsoRisorse> lista =urr.getUsoRisorseByType(id, idt);
-		System.out.println(lista.get(0).getCommessa().getNome()); 
 		return lista;
 	}
 	
