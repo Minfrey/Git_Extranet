@@ -22,7 +22,6 @@ public class TipoAvanzamentoRepoImp implements TipoAvanzamentoRepo
 		List<TipoAvanzamento> tipi = new ArrayList<TipoAvanzamento>();
 		Query q = em.createQuery("select t from TipoAvanzamento t");
 		tipi = q.getResultList();
-		
 		return tipi;
 	}
 
